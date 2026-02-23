@@ -73,6 +73,43 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* Category cards (top-level) */
+        .catgrid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0,1fr));
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .catcard {
+            display: block;
+            border: 1px solid #232635;
+            border-radius: 16px;
+            padding: 18px;
+            background: #111318;
+            text-decoration: none;
+        }
+
+            .catcard:hover {
+                border-color: #2b66ff;
+                text-decoration: none;
+            }
+
+            .catcard h4 {
+                margin: 0 0 6px;
+                color: #e8eaf0;
+            }
+
+            .catcard p {
+                margin: 0;
+                color: #a9afc3;
+            }
+
+        @media (max-width: 900px) {
+            .catgrid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -103,63 +140,115 @@
 
         <section id="projects" style="padding:30px 0; border-top:1px solid #232635;">
             <h3 style="margin:0 0 6px;">Projects</h3>
-            <p class="muted" style="margin:0 0 14px;">Add 3–6 strong pieces with links to ArtStation/video/GitHub.</p>
+            <p class="muted" style="margin:0 0 14px;">
+                Choose a category to see the work inside.
+            </p>
 
-            <div class="grid">
-                <div class="card">
-                    <h4 style="margin:0 0 6px;">Project 1</h4>
-                    <p class="muted" style="margin:0 0 10px;">1–2 lines: what it is + your contribution.</p>
-                    <div class="muted" style="font-size:13px;">Houdini • Unreal • USD</div>
-                    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
-                        <a href="#" target="_blank" rel="noopener">ArtStation</a>
-                        <a href="#" target="_blank" rel="noopener">Breakdown</a>
+            <!-- 3 Category Cards (front-facing) -->
+            <div class="catgrid">
+                <a class="catcard" href="#cat-environments">
+                    <h4>Environments</h4>
+                    <p>Large scenes, lighting, materials, procedural workflows.</p>
+                </a>
+
+                <a class="catcard" href="#cat-models">
+                    <h4>3D Models</h4>
+                    <p>Props, modular kits, trim sheets, asset breakdowns.</p>
+                </a>
+
+                <a class="catcard" href="#cat-games">
+                    <h4>Games</h4>
+                    <p>Playable builds, prototypes, game jam projects.</p>
+                </a>
+            </div>
+
+            <!-- Category Section: Environments -->
+            <div id="cat-environments" style="margin-top:28px;">
+                <h4 style="margin:0 0 10px;">Environments</h4>
+                <div class="grid">
+                    <div class="card">
+                        <h4 style="margin:0 0 6px;">Palace of Deceit (Kaurava Palace)</h4>
+                        <p class="muted" style="margin:0 0 10px;">Replace with 1–2 lines describing what you built + tools used.</p>
+                        <div class="muted" style="font-size:13px;">Houdini • Unreal • Materials</div>
+                        <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                            <a href="#" target="_blank" rel="noopener">ArtStation</a>
+                            <a href="#" target="_blank" rel="noopener">Breakdown</a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="card">
-                    <h4 style="margin:0 0 6px;">Project 2</h4>
-                    <p class="muted" style="margin:0 0 10px;">Tools / pipeline / shader highlight.</p>
-                    <div class="muted" style="font-size:13px;">Unreal • C++ • Tools</div>
-                    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
-                        <a href="#" target="_blank" rel="noopener">Video</a>
-                        <a href="#" target="_blank" rel="noopener">GitHub</a>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h4 style="margin:0 0 6px;">Project 3</h4>
-                    <p class="muted" style="margin:0 0 10px;">Another strong piece, different type.</p>
-                    <div class="muted" style="font-size:13px;">Unity • Gameplay • 2D</div>
-                    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
-                        <a href="#" target="_blank" rel="noopener">Playable</a>
-                        <a href="#" target="_blank" rel="noopener">Devlog</a>
+                    <div class="card">
+                        <h4 style="margin:0 0 6px;">Environment Project 2</h4>
+                        <p class="muted" style="margin:0 0 10px;">Replace with your 2nd environment piece.</p>
+                        <div class="muted" style="font-size:13px;">Unreal • Lighting • Set Dressing</div>
+                        <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                            <a href="#" target="_blank" rel="noopener">Video</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section id="about" style="padding:30px 0; border-top:1px solid #232635;">
-            <h3 style="margin:0 0 10px;">About</h3>
-            <div class="card">
-                <p class="muted" style="margin:0;">
-                    Write a short paragraph: who you are, what you do, and what roles you want.
-                </p>
+            <!-- Category Section: 3D Models -->
+            <div id="cat-models" style="margin-top:28px;">
+                <h4 style="margin:0 0 10px;">3D Models</h4>
+                <div class="grid">
+                    <div class="card">
+                        <h4 style="margin:0 0 6px;">Prop / Model 1</h4>
+                        <p class="muted" style="margin:0 0 10px;">Replace with what it is + tools used.</p>
+                        <div class="muted" style="font-size:13px;">3ds Max • Substance • Unreal</div>
+                        <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                            <a href="#" target="_blank" rel="noopener">ArtStation</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4 style="margin:0 0 6px;">Prop / Model 2</h4>
+                        <p class="muted" style="margin:0 0 10px;">Replace with your 2nd model piece.</p>
+                        <div class="muted" style="font-size:13px;">Modeling • UVs • Texturing</div>
+                        <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                            <a href="#" target="_blank" rel="noopener">Breakdown</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
 
-        <section id="contact" style="padding:30px 0; border-top:1px solid #232635;">
-            <h3 style="margin:0 0 10px;">Contact</h3>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                <a class="btn" href="mailto:Rockinghamsters@gmail.com">youremail@example.com</a>
-                <a class="btn ghost" href="#" target="_blank" rel="noopener">LinkedIn</a>
-                <a class="btn ghost" href="#" target="_blank" rel="noopener">ArtStation</a>
+            <!-- Category Section: Games -->
+            <div id="cat-games" style="margin-top:28px;">
+                <h4 style="margin:0 0 10px;">Games</h4>
+                <div class="grid">
+                    <div class="card">
+                        <h4 style="margin:0 0 6px;">Paradox Hotel (Game Jam)</h4>
+                        <p class="muted" style="margin:0 0 10px;">Replace with a short pitch + what you shipped.</p>
+                        <div class="muted" style="font-size:13px;">Unity • 2D • Systems</div>
+                        <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                            <a href="#" target="_blank" rel="noopener">Playable</a>
+                            <a href="#" target="_blank" rel="noopener">Devlog</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
 
-        <footer style="padding:26px 0; border-top:1px solid #232635;" class="muted">
-            © <span id="y"></span> Sayyam
-        </footer>
-    </div>
+            <section id="about" style="padding:30px 0; border-top:1px solid #232635;">
+                <h3 style="margin:0 0 10px;">About</h3>
+                <div class="card">
+                    <p class="muted" style="margin:0;">
+                        Write a short paragraph: who you are, what you do, and what roles you want.
+                    </p>
+                </div>
+            </section>
+
+            <section id="contact" style="padding:30px 0; border-top:1px solid #232635;">
+                <h3 style="margin:0 0 10px;">Contact</h3>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <a class="btn" href="mailto:Rockinghamsters@gmail.com">Rockinghamsters@gmail.com</a>
+                    <a class="btn ghost" href="#" target="_blank" rel="noopener">LinkedIn</a>
+                    <a class="btn ghost" href="#" target="_blank" rel="noopener">ArtStation</a>
+                </div>
+            </section>
+
+            <footer style="padding:26px 0; border-top:1px solid #232635;" class="muted">
+                © <span id="y"></span> Sayyam
+            </footer>
+</div>
 
     <script>
         document.getElementById("y").textContent = new Date().getFullYear();
