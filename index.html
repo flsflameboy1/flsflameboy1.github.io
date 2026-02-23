@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sayyam — Portfolio</title>
+    <meta name="description" content="Portfolio of Sayyam — Technical Artist / Environment Artist." />
+    <style>
+        body {
+            font-family: system-ui, Arial;
+            margin: 0;
+            background: #0b0c10;
+            color: #e8eaf0;
+        }
+
+        .wrap {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 32px 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        a {
+            color: #8ab4ff;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: #2b66ff;
+            color: white;
+        }
+
+            .btn.ghost {
+                background: transparent;
+                border: 1px solid #2a2f45;
+                color: #e8eaf0;
+            }
+
+        .card {
+            border: 1px solid #232635;
+            border-radius: 16px;
+            padding: 16px;
+            background: #111318;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0,1fr));
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .muted {
+            color: #a9afc3;
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <div>
+                <h1 style="margin:0">Sayyam</h1>
+                <div class="muted">Technical Artist • Environment Artist • Houdini • Unreal</div>
+            </div>
+            <nav style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+                <a href="#projects">Projects</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <a class="btn" href="#" target="_blank" rel="noopener">Resume</a>
+            </nav>
+        </header>
+
+        <section style="padding:38px 0 10px;">
+            <h2 style="margin:0 0 10px;">I build procedural environments and production-ready tools.</h2>
+            <p class="muted" style="max-width:70ch; margin:0 0 18px;">
+                Replace this with 1–2 lines about what you specialize in and what roles you want.
+            </p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <a class="btn" href="#projects">See Projects</a>
+                <a class="btn ghost" href="#contact">Contact</a>
+            </div>
+        </section>
+
+        <section id="projects" style="padding:30px 0; border-top:1px solid #232635;">
+            <h3 style="margin:0 0 6px;">Projects</h3>
+            <p class="muted" style="margin:0 0 14px;">Add 3–6 strong pieces with links to ArtStation/video/GitHub.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h4 style="margin:0 0 6px;">Project 1</h4>
+                    <p class="muted" style="margin:0 0 10px;">1–2 lines: what it is + your contribution.</p>
+                    <div class="muted" style="font-size:13px;">Houdini • Unreal • USD</div>
+                    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                        <a href="#" target="_blank" rel="noopener">ArtStation</a>
+                        <a href="#" target="_blank" rel="noopener">Breakdown</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4 style="margin:0 0 6px;">Project 2</h4>
+                    <p class="muted" style="margin:0 0 10px;">Tools / pipeline / shader highlight.</p>
+                    <div class="muted" style="font-size:13px;">Unreal • C++ • Tools</div>
+                    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                        <a href="#" target="_blank" rel="noopener">Video</a>
+                        <a href="#" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4 style="margin:0 0 6px;">Project 3</h4>
+                    <p class="muted" style="margin:0 0 10px;">Another strong piece, different type.</p>
+                    <div class="muted" style="font-size:13px;">Unity • Gameplay • 2D</div>
+                    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                        <a href="#" target="_blank" rel="noopener">Playable</a>
+                        <a href="#" target="_blank" rel="noopener">Devlog</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" style="padding:30px 0; border-top:1px solid #232635;">
+            <h3 style="margin:0 0 10px;">About</h3>
+            <div class="card">
+                <p class="muted" style="margin:0;">
+                    Write a short paragraph: who you are, what you do, and what roles you want.
+                </p>
+            </div>
+        </section>
+
+        <section id="contact" style="padding:30px 0; border-top:1px solid #232635;">
+            <h3 style="margin:0 0 10px;">Contact</h3>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <a class="btn" href="mailto:youremail@example.com">youremail@example.com</a>
+                <a class="btn ghost" href="#" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="btn ghost" href="#" target="_blank" rel="noopener">ArtStation</a>
+            </div>
+        </section>
+
+        <footer style="padding:26px 0; border-top:1px solid #232635;" class="muted">
+            © <span id="y"></span> Sayyam
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
