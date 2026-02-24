@@ -4,17 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sayyam — Portfolio</title>
-    <meta name="description" content="Sayyam — Technical Artist / Environment Artist. Procedural workflows, tools, and game projects." />
+    <meta name="description" content="Sayyam — Technical Artist / Environment Artist." />
 
     <style>
         :root {
-            /* Switch to light theme by swapping bg/text if you want */
-            --bg: #0b0c10;
-            --text: #e9ecf7;
-            --muted: #a7afc7;
-            --line: #232635;
-            --link: #cfd8ff;
-            --max: 840px;
+            --bg: #fbfbf8;
+            --text: #141414;
+            --muted: #5f5f5f;
+            --link: #141414;
+            --max: 980px;
         }
 
         * {
@@ -37,35 +35,35 @@
         .wrap {
             max-width: var(--max);
             margin: 0 auto;
-            padding: 42px 18px 70px;
+            padding: 64px 22px 90px;
         }
 
         header {
             display: flex;
-            gap: 16px;
             justify-content: space-between;
             align-items: flex-start;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
         h1 {
             margin: 0;
-            font-size: 20px;
-            font-weight: 650;
+            font-size: 22px;
+            font-weight: 600;
         }
 
         .tagline {
-            margin: 8px 0 0;
+            margin: 10px 0 0;
             color: var(--muted);
-            font-size: 14px;
+            font-size: 16px;
             max-width: 70ch;
         }
 
         nav {
             display: flex;
-            gap: 14px;
+            gap: 16px;
             flex-wrap: wrap;
-            align-items: center;
+            font-size: 14px;
         }
 
         a {
@@ -77,83 +75,99 @@
                 text-decoration: underline;
             }
 
-        .rule {
-            margin: 22px 0 0;
-            border: 0;
-            border-top: 1px solid var(--line);
+        main {
+            margin-top: 56px;
         }
 
-        section {
-            margin-top: 26px;
-        }
-
-        h2 {
-            margin: 0 0 10px;
-            font-size: 12px;
-            letter-spacing: 0.18em;
+        .sectionTitle {
+            margin: 0 0 14px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             color: var(--muted);
-            font-weight: 650;
         }
 
-        /* Minimal lists like your inspirations */
-        .list {
+        /* Minimal project list */
+        .projects {
             margin: 0;
             padding: 0;
             list-style: none;
         }
 
-        .item {
-            padding: 10px 0;
-            border-top: 1px solid var(--line);
+        .proj {
+            padding: 16px 0;
+            border-top: 1px solid rgba(20,20,20,0.10);
             display: flex;
-            gap: 14px;
             justify-content: space-between;
-            align-items: baseline;
+            gap: 18px;
             flex-wrap: wrap;
+            align-items: baseline;
         }
 
-            .item:first-child {
+            .proj:first-child {
                 border-top: 0;
                 padding-top: 0;
             }
 
-        .title {
-            font-weight: 650;
-            color: var(--text);
+        .projLeft {
+            min-width: 280px;
         }
 
-        .meta {
+        .projTitle {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .projDesc {
+            margin: 6px 0 0;
             color: var(--muted);
-            font-size: 13px;
+            font-size: 14px;
+            max-width: 62ch;
         }
 
-        .right {
+        .projLinks {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             flex-wrap: wrap;
-            align-items: baseline;
-        }
-
-        .small {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--muted);
         }
 
-        .mono {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            .projLinks a {
+                color: var(--muted);
+            }
+
+                .projLinks a:hover {
+                    color: var(--text);
+                }
+
+        .about, .contact {
+            margin-top: 56px;
+            max-width: 75ch;
+            color: var(--muted);
+            font-size: 16px;
         }
 
         footer {
-            margin-top: 28px;
-            padding-top: 18px;
-            border-top: 1px solid var(--line);
+            margin-top: 64px;
             color: var(--muted);
-            font-size: 13px;
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            .wrap {
+                padding: 48px 18px 70px;
+            }
+
+            .projTitle {
+                font-size: 16px;
+            }
+
+            .proj {
+                padding: 14px 0;
+            }
         }
     </style>
 </head>
@@ -164,11 +178,11 @@
             <div>
                 <h1>Sayyam</h1>
                 <p class="tagline">
-                    Technical Artist / Environment Artist. Procedural workflows, tools, and game projects.
+                    Technical Artist / Environment Artist — procedural environments, tools, and real-time pipelines.
                 </p>
             </div>
 
-            <nav class="mono">
+            <nav>
                 <a href="#projects">Projects</a>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
@@ -176,72 +190,65 @@
             </nav>
         </header>
 
-        <hr class="rule" />
+        <main>
+            <h2 id="projects" class="sectionTitle">Projects</h2>
 
-        <section id="projects">
-            <h2>Projects</h2>
-
-            <ul class="list">
-                <li class="item">
-                    <div>
-                        <span class="title">Palace of Deceit (Kaurava Palace)</span>
-                        <div class="meta">Houdini → Unreal • Procedural environment</div>
+            <ul class="projects">
+                <li class="proj">
+                    <div class="projLeft">
+                        <p class="projTitle">Palace of Deceit (Kaurava Palace)</p>
+                        <p class="projDesc">Procedural environment work in Houdini → Unreal. Materials, asset variation, scene assembly.</p>
                     </div>
-                    <div class="right mono">
+                    <div class="projLinks">
                         <a href="#" target="_blank" rel="noopener">ArtStation</a>
                         <a href="#" target="_blank" rel="noopener">Breakdown</a>
                     </div>
                 </li>
 
-                <li class="item">
-                    <div>
-                        <span class="title">BabyLD Tools</span>
-                        <div class="meta">Unreal • C++ • Editor tooling</div>
+                <li class="proj">
+                    <div class="projLeft">
+                        <p class="projTitle">BabyLD Tools</p>
+                        <p class="projDesc">Unreal Editor toolset (C++/Slate) for rapid level prototyping: lines, floors, Perlin terrain.</p>
                     </div>
-                    <div class="right mono">
+                    <div class="projLinks">
                         <a href="#" target="_blank" rel="noopener">Video</a>
                         <a href="#" target="_blank" rel="noopener">GitHub</a>
                     </div>
                 </li>
 
-                <li class="item">
-                    <div>
-                        <span class="title">Paradox Hotel (Game Jam)</span>
-                        <div class="meta">Unity • 2D • Prototype</div>
+                <li class="proj">
+                    <div class="projLeft">
+                        <p class="projTitle">Paradox Hotel (Game Jam)</p>
+                        <p class="projDesc">2D detective puzzle prototype. Interaction systems + room logic + UI flow.</p>
                     </div>
-                    <div class="right mono">
+                    <div class="projLinks">
                         <a href="#" target="_blank" rel="noopener">Playable</a>
                         <a href="#" target="_blank" rel="noopener">Devlog</a>
                     </div>
                 </li>
             </ul>
 
-            <p class="small" style="margin-top:12px;">
-                Tip: keep this list short (6–10 max). Link out to deeper pages or ArtStation.
-            </p>
-        </section>
+            <div id="about" class="about">
+                <h2 class="sectionTitle">About</h2>
+                <p>
+                    Write 4–6 lines: what you build, what tools you use (Houdini/Unreal/C++/Python), and what roles you want.
+                    Keep it concrete and skimmable.
+                </p>
+            </div>
 
-        <section id="about">
-            <h2>About</h2>
-            <p class="small">
-                Write 4–6 lines. Keep it concrete: what you build, what tools you use, what roles you want.
-                Mention Houdini/Unreal pipelines, tooling, and environment work.
-            </p>
-        </section>
+            <div id="contact" class="contact">
+                <h2 class="sectionTitle">Contact</h2>
+                <p>
+                    <a href="mailto:Rockinghamsters@gmail.com">Rockinghamsters@gmail.com</a>
+                    · <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+                    · <a href="#" target="_blank" rel="noopener">ArtStation</a>
+                </p>
+            </div>
 
-        <section id="contact">
-            <h2>Contact</h2>
-            <p class="small mono" style="margin:0;">
-                <a href="mailto:Rockinghamsters@gmail.com">Rockinghamsters@gmail.com</a>
-                &nbsp;·&nbsp; <a href="#" target="_blank" rel="noopener">LinkedIn</a>
-                &nbsp;·&nbsp; <a href="#" target="_blank" rel="noopener">ArtStation</a>
-            </p>
-        </section>
-
-        <footer>
-            <span>© <span id="y"></span> Sayyam</span>
-            <span class="mono">Built on GitHub Pages</span>
-        </footer>
+            <footer>
+                © <span id="y"></span> Sayyam
+            </footer>
+        </main>
     </div>
 
     <script>
