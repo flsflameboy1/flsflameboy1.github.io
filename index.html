@@ -198,8 +198,8 @@
         }
 
         .hero-pfp {
-            width: 200px;
-            height: 200px;
+            width: 270px;
+            height: 270px;
             border-radius: 50%;
             object-fit: cover;
             object-position: center top;
@@ -214,8 +214,8 @@
             position: absolute;
             top: -10px;
             left: -10px;
-            width: calc(200px + 20px);
-            height: calc(200px + 20px);
+            width: calc(270px + 20px);
+            height: calc(270px + 20px);
             border-radius: 50%;
             border: 1px solid var(--teal-dim);
             animation: glowPulse 3s ease-in-out infinite;
@@ -227,8 +227,8 @@
             position: absolute;
             top: -22px;
             left: -22px;
-            width: calc(200px + 44px);
-            height: calc(200px + 44px);
+            width: calc(270px + 44px);
+            height: calc(270px + 44px);
             border-radius: 50%;
             border: 1px solid rgba(35,240,208,0.06);
             animation: glowPulse 3s ease-in-out infinite 0.8s;
@@ -360,6 +360,8 @@
             flex-direction: column;
             gap: 10px;
             min-height: 340px;
+            max-height: 340px;
+            overflow: hidden;
         }
 
         /* rows inside the panel */
