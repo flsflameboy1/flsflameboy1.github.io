@@ -1,0 +1,75 @@
+[
+  {
+    "number": "01",
+    "title": "Environments",
+    "description": "Procedural environment work in Houdini → Unreal. Materials, variation, and pipeline.",
+    "tags": ["Houdini", "Unreal", "Materials"],
+    "link": "#",
+    "images": [
+      { "src": "assets/thumbs/env/env_01.jpg", "alt": "Environment shot 1" },
+      { "src": "assets/thumbs/env/env_02.jpg", "alt": "Environment shot 2" },
+      { "src": "assets/thumbs/env/env_03.jpg", "alt": "Environment shot 3" },
+      { "src": "assets/thumbs/env/env_04.jpg", "alt": "Environment shot 4" }
+    ]
+  },
+  {
+    "number": "02",
+    "title": "Tools",
+    "description": "Unreal Editor toolset (C++/Slate) for rapid level prototyping and procedural generation.",
+    "tags": ["Unreal", "C++", "Slate"],
+    "link": "#",
+    "images": [
+      { "src": "assets/thumbs/tools/tools_01.jpg", "alt": "Tools shot 1" },
+      { "src": "assets/thumbs/tools/tools_02.jpg", "alt": "Tools shot 2" },
+      { "src": "assets/thumbs/tools/tools_03.jpg", "alt": "Tools shot 3" }
+    ]
+  },
+  {
+    "number": "03",
+    "title": "Games",
+    "description": "2D detective puzzle prototype (game jam). Interaction systems, room logic, UI flow.",
+    "tags": ["Unity", "2D", "Systems"],
+    "link": "#",
+    "images": [
+      { "src": "assets/thumbs/games/games_01.jpg", "alt": "Games shot 1" },
+      { "src": "assets/thumbs/games/games_02.jpg", "alt": "Games shot 2" },
+      { "src": "assets/thumbs/games/games_03.jpg", "alt": "Games shot 3" }
+    ]
+  },
+  {
+    "number": "04",
+    "title": "3D Modelling",
+    "description": "High-to-low workflow, baking, and presentation-ready renders.",
+    "tags": ["3ds Max", "Substance", "Render"],
+    "link": "#",
+    "images": [
+      { "src": "assets/thumbs/models/models_01.jpg", "alt": "Model shot 1" },
+      { "src": "assets/thumbs/models/models_02.jpg", "alt": "Model shot 2" },
+      { "src": "assets/thumbs/models/models_03.jpg", "alt": "Model shot 3" }
+    ]
+  },
+  {
+    "number": "05",
+    "title": "VFX & Simulations",
+    "description": "Houdini-based destruction, fluids, and real-time Niagara VFX systems.",
+    "tags": ["Houdini", "Niagara", "VFX"],
+    "link": "#",
+    "images": [
+      { "src": "assets/thumbs/vfx/vfx_01.jpg", "alt": "VFX shot 1" },
+      { "src": "assets/thumbs/vfx/vfx_02.jpg", "alt": "VFX shot 2" },
+      { "src": "assets/thumbs/vfx/vfx_03.jpg", "alt": "VFX shot 3" }
+    ]
+  },
+  {
+    "number": "06",
+    "title": "Shaders & Materials",
+    "description": "Custom HLSL and node-based shaders for real-time rendering in Unreal and Unity.",
+    "tags": ["HLSL", "Unreal Materials", "Substance"],
+    "link": "#",
+    "images": [
+      { "src": "assets/thumbs/shaders/shaders_01.jpg", "alt": "Shader shot 1" },
+      { "src": "assets/thumbs/shaders/shaders_02.jpg", "alt": "Shader shot 2" },
+      { "src": "assets/thumbs/shaders/shaders_03.jpg", "alt": "Shader shot 3" }
+    ]
+  }
+]
