@@ -40,7 +40,6 @@
             padding: 44px 18px 120px; /* space for dock */
         }
 
-        /* Studio title */
         .studio {
             text-align: center;
             margin-bottom: 28px;
@@ -61,7 +60,6 @@
             font-size: 14px;
         }
 
-        /* Static page headline */
         .headline {
             margin-top: 8px;
             margin-bottom: 22px;
@@ -86,7 +84,7 @@
             line-height: 1.08;
         }
 
-        /* Layout: 1 column list view */
+        /* List view */
         .projects {
             display: grid;
             grid-template-columns: 1fr;
@@ -94,7 +92,6 @@
             margin-top: 18px;
         }
 
-        /* Per-project block: header ABOVE + image BELOW */
         .projectBlock {
             display: flex;
             flex-direction: column;
@@ -164,37 +161,37 @@
             overflow: hidden;
             background: rgba(255,255,255,0.01);
             text-decoration: none;
-            transition: transform 120ms ease, border-color 120ms ease;
+            transition: border-color 120ms ease;
         }
 
             .thumbLink:hover {
-                transform: translateY(-2px);
                 border-color: var(--line);
             }
 
-        .thumb {
-            background: rgba(255,255,255,0.02);
-        }
-
-        .thumbImg {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: initial;
-        }
-
-        /* -----------------------------
-           MULTI-THUMB LAYOUT (NEW)
-           main + 3 stacked thumbs
-        ------------------------------*/
+        /* ---------- Dynamic multi-thumb ---------- */
         .thumbGrid {
             display: grid;
-            grid-template-columns: 1fr 160px; /* big + side column */
             gap: 12px;
-            align-items: stretch;
             padding: 12px;
             background: rgba(255,255,255,0.01);
         }
+
+            /* JS sets data-count="2|3|4" on .thumbGrid */
+            .thumbGrid[data-count="1"] {
+                grid-template-columns: 1fr;
+            }
+
+            .thumbGrid[data-count="2"] {
+                grid-template-columns: 1fr 160px;
+            }
+
+            .thumbGrid[data-count="3"] {
+                grid-template-columns: 1fr 160px;
+            }
+
+            .thumbGrid[data-count="4"] {
+                grid-template-columns: 1fr 160px;
+            }
 
         .mainThumb, .sideThumb {
             border: 1px solid var(--line2);
@@ -211,19 +208,33 @@
             }
 
         .mainThumb {
-            height: 360px; /* main height */
+            height: 360px;
         }
 
+        /* Side stack height matches main */
         .sideStack {
             display: grid;
-            grid-template-rows: repeat(3, 1fr);
             gap: 12px;
-            height: 360px; /* match mainThumb */
+            height: 360px;
         }
 
+        /* rows depend on count (JS also sets this) */
+        .thumbGrid[data-count="2"] .sideStack {
+            grid-template-rows: 1fr;
+        }
+
+        .thumbGrid[data-count="3"] .sideStack {
+            grid-template-rows: repeat(2, 1fr);
+        }
+
+        .thumbGrid[data-count="4"] .sideStack {
+            grid-template-rows: repeat(3, 1fr);
+        }
+
+        /* On mobile: big then smalls in a row */
         @media (max-width: 900px) {
             .thumbGrid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
             }
 
             .mainThumb {
@@ -231,9 +242,21 @@
             }
 
             .sideStack {
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: none;
                 height: auto;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: none !important;
+            }
+
+            .thumbGrid[data-count="2"] .sideStack {
+                grid-template-columns: repeat(1, 1fr);
+            }
+
+            .thumbGrid[data-count="3"] .sideStack {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .thumbGrid[data-count="4"] .sideStack {
+                grid-template-columns: repeat(3, 1fr);
             }
 
             .sideThumb {
@@ -373,7 +396,7 @@
 
         <div class="projects">
 
-            <!-- PROJECT 1 (MULTI THUMB) -->
+            <!-- PROJECT 1 -->
             <div class="projectBlock">
                 <div class="projHeader">
                     <div class="projLeft">
@@ -390,21 +413,10 @@
 
                 <a class="thumbLink" href="#" target="_blank" rel="noopener">
                     <div class="thumbGrid">
-                        <div class="mainThumb">
-                            <img src="assets/thumbs/environments.jpg" alt="Environments main">
-                        </div>
-
-                        <div class="sideStack">
-                            <div class="sideThumb">
-                                <img src="assets/thumbs/env_1.jpg" alt="Environment thumb 1">
-                            </div>
-                            <div class="sideThumb">
-                                <img src="assets/thumbs/env_2.jpg" alt="Environment thumb 2">
-                            </div>
-                            <div class="sideThumb">
-                                <img src="assets/thumbs/env_3.jpg" alt="Environment thumb 3">
-                            </div>
-                        </div>
+                        <img src="assets/thumbs/environments.jpg" alt="Environments main">
+                        <img src="assets/thumbs/env_1.jpg" alt="Environments thumb 1">
+                        <img src="assets/thumbs/env_2.jpg" alt="Environments thumb 2">
+                        <img src="assets/thumbs/env_3.jpg" alt="Environments thumb 3">
                     </div>
                 </a>
             </div>
@@ -425,8 +437,10 @@
                 </div>
 
                 <a class="thumbLink" href="#" target="_blank" rel="noopener">
-                    <div class="thumb">
-                        <img class="thumbImg" src="assets/thumbs/tools.jpg" alt="BabyLD Tools">
+                    <div class="thumbGrid">
+                        <img src="assets/thumbs/tools.jpg" alt="Tools main">
+                        <img src="assets/thumbs/tools_1.jpg" alt="Tools thumb 1">
+                        <img src="assets/thumbs/tools_2.jpg" alt="Tools thumb 2">
                     </div>
                 </a>
             </div>
@@ -447,8 +461,11 @@
                 </div>
 
                 <a class="thumbLink" href="#" target="_blank" rel="noopener">
-                    <div class="thumb">
-                        <img class="thumbImg" src="assets/thumbs/games.jpg" alt="Paradox Hotel">
+                    <div class="thumbGrid">
+                        <img src="assets/thumbs/games.jpg" alt="Games main">
+                        <img src="assets/thumbs/games_1.jpg" alt="Games thumb 1">
+                        <img src="assets/thumbs/games_2.jpg" alt="Games thumb 2">
+                        <img src="assets/thumbs/games_3.jpg" alt="Games thumb 3">
                     </div>
                 </a>
             </div>
@@ -469,8 +486,9 @@
                 </div>
 
                 <a class="thumbLink" href="#" target="_blank" rel="noopener">
-                    <div class="thumb">
-                        <img class="thumbImg" src="assets/thumbs/models.jpg" alt="Hero Prop">
+                    <div class="thumbGrid">
+                        <img src="assets/thumbs/models.jpg" alt="Models main">
+                        <img src="assets/thumbs/models_1.jpg" alt="Models thumb 1">
                     </div>
                 </a>
             </div>
@@ -524,7 +542,40 @@
     </div>
 
     <script>
-        // Dock modal logic
+        // ----- Make thumbGrid dynamic based on number of <img> inside -----
+        function buildDynamicThumbGrids() {
+            document.querySelectorAll(".thumbGrid").forEach(grid => {
+                const imgs = Array.from(grid.querySelectorAll("img"));
+                const count = Math.min(Math.max(imgs.length, 1), 4);
+
+                // store count for CSS
+                grid.setAttribute("data-count", String(count));
+
+                // Clear and rebuild layout DOM (main + sideStack)
+                grid.innerHTML = "";
+
+                // Main image
+                const main = document.createElement("div");
+                main.className = "mainThumb";
+                main.appendChild(imgs[0]);
+                grid.appendChild(main);
+
+                // Side images if any
+                if (count > 1) {
+                    const sideStack = document.createElement("div");
+                    sideStack.className = "sideStack";
+                    for (let i = 1; i < count; i++) {
+                        const side = document.createElement("div");
+                        side.className = "sideThumb";
+                        side.appendChild(imgs[i]);
+                        sideStack.appendChild(side);
+                    }
+                    grid.appendChild(sideStack);
+                }
+            });
+        }
+
+        // Dock modal logic (your original)
         document.querySelectorAll("[data-open]").forEach(btn => {
             btn.addEventListener("click", () => {
                 const id = btn.getAttribute("data-open");
@@ -550,6 +601,9 @@
                 document.querySelectorAll(".modalOverlay.show").forEach(m => m.classList.remove("show"));
             }
         });
+
+        // Build dynamic grids after page loads
+        buildDynamicThumbGrids();
     </script>
 </body>
 </html>
