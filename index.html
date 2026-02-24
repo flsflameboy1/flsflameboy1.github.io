@@ -404,27 +404,6 @@
         }
 
         /* arrow */
-        .proj-arrow {
-            position: absolute;
-            bottom: 44px;
-            right: 44px;
-            width: 44px;
-            height: 44px;
-            border: 1px solid var(--line);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--muted);
-            font-size: 18px;
-            transition: border-color 0.2s, color 0.2s, transform 0.2s;
-        }
-
-        .project-row:hover .proj-arrow {
-            border-color: var(--teal);
-            color: var(--teal);
-            transform: rotate(45deg);
-        }
 
         /* ── Image panel ── */
         .proj-images {
@@ -773,11 +752,6 @@
                 flex-direction: column;
             }
 
-            .proj-arrow {
-                bottom: 24px;
-                right: 0;
-            }
-
             .about-strip {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -854,12 +828,11 @@
                 </div>
             </div>
             <div class="proj-images">
-                <div class="thumb"><img src="assets/thumbs/environments.jpg" alt="Environments"></div>
-                <div class="thumb"><img src="assets/thumbs/env_1.jpg" alt="Environments 1"></div>
-                <div class="thumb"><img src="assets/thumbs/env_2.jpg" alt="Environments 2"></div>
-                <div class="thumb"><img src="assets/thumbs/env_3.jpg" alt="Environments 3"></div>
+                <img src="assets/thumbs/environments.jpg" alt="Environments">
+                <img src="assets/thumbs/env_1.jpg" alt="Environments 1">
+                <img src="assets/thumbs/env_2.jpg" alt="Environments 2">
+                <img src="assets/thumbs/env_3.jpg" alt="Environments 3">
             </div>
-            <div class="proj-arrow">→</div>
         </div>
 
         <!-- Project 2 -->
@@ -877,11 +850,10 @@
                 </div>
             </div>
             <div class="proj-images">
-                <div class="thumb"><img src="assets/thumbs/tools.jpg" alt="Tools"></div>
-                <div class="thumb"><img src="assets/thumbs/tools_1.jpg" alt="Tools 1"></div>
-                <div class="thumb"><img src="assets/thumbs/tools_2.jpg" alt="Tools 2"></div>
+                <img src="assets/thumbs/tools.jpg" alt="Tools">
+                <img src="assets/thumbs/tools_1.jpg" alt="Tools 1">
+                <img src="assets/thumbs/tools_2.jpg" alt="Tools 2">
             </div>
-            <div class="proj-arrow">→</div>
         </div>
 
         <!-- Project 3 -->
@@ -899,12 +871,11 @@
                 </div>
             </div>
             <div class="proj-images">
-                <div class="thumb"><img src="assets/thumbs/games.jpg" alt="Games"></div>
-                <div class="thumb"><img src="assets/thumbs/games_1.jpg" alt="Games 1"></div>
-                <div class="thumb"><img src="assets/thumbs/games_2.jpg" alt="Games 2"></div>
-                <div class="thumb"><img src="assets/thumbs/games_3.jpg" alt="Games 3"></div>
+                <img src="assets/thumbs/games.jpg" alt="Games">
+                <img src="assets/thumbs/games_1.jpg" alt="Games 1">
+                <img src="assets/thumbs/games_2.jpg" alt="Games 2">
+                <img src="assets/thumbs/games_3.jpg" alt="Games 3">
             </div>
-            <div class="proj-arrow">→</div>
         </div>
 
         <!-- Project 4 -->
@@ -922,10 +893,9 @@
                 </div>
             </div>
             <div class="proj-images">
-                <div class="thumb"><img src="assets/thumbs/models.jpg" alt="Models"></div>
-                <div class="thumb"><img src="assets/thumbs/models_1.jpg" alt="Models 1"></div>
+                <img src="assets/thumbs/models.jpg" alt="Models">
+                <img src="assets/thumbs/models_1.jpg" alt="Models 1">
             </div>
-            <div class="proj-arrow">→</div>
         </div>
 
     </section>
@@ -1010,22 +980,23 @@
         /* ── Dynamic image grid ── */
         function buildGrids() {
             document.querySelectorAll('.proj-images').forEach(grid => {
-                // Get all imgs still in the grid (broken ones already removed)
-                const allImgs = Array.from(grid.querySelectorAll('img'));
-                const loaded = allImgs.filter(img => img.complete && img.naturalWidth > 0);
 
-                if (loaded.length === 0) {
-                    grid.style.display = 'none'; // no images at all, hide the panel
+                // Grab all imgs still present (broken ones already removed via error handler)
+                const imgs = Array.from(grid.querySelectorAll('img'))
+                    .filter(img => img.complete && img.naturalWidth > 0);
+
+                // Detach live imgs so we can clear and rebuild without losing them
+                imgs.forEach(img => img.remove());
+                grid.innerHTML = '';
+
+                if (imgs.length === 0) {
+                    grid.style.display = 'none';
                     return;
                 }
 
                 grid.style.display = '';
-                const count = Math.min(loaded.length, 4);
+                const count = Math.min(imgs.length, 4);
                 grid.setAttribute('data-count', String(count));
-
-                // Detach imgs from DOM before clearing
-                loaded.forEach(img => img.remove());
-                grid.innerHTML = '';
 
                 function makeThumb(img) {
                     const t = document.createElement('div');
@@ -1034,38 +1005,26 @@
                     return t;
                 }
 
-                function makeRow(...imgs) {
+                function makeRow(...rowImgs) {
                     const row = document.createElement('div');
                     row.className = 'thumb-row';
-                    imgs.forEach(img => row.appendChild(makeThumb(img)));
-                    return row;
+                    rowImgs.forEach(img => row.appendChild(makeThumb(img)));
+                    grid.appendChild(row);
                 }
 
-                if (count === 1) {
-                    grid.appendChild(makeRow(loaded[0]));
-                } else if (count === 2) {
-                    grid.appendChild(makeRow(loaded[0]));
-                    grid.appendChild(makeRow(loaded[1]));
-                } else if (count === 3) {
-                    grid.appendChild(makeRow(loaded[0]));
-                    grid.appendChild(makeRow(loaded[1], loaded[2]));
-                } else {
-                    grid.appendChild(makeRow(loaded[0]));
-                    grid.appendChild(makeRow(loaded[1], loaded[2], loaded[3]));
-                }
+                if (count === 1) { makeRow(imgs[0]); }
+                else if (count === 2) { makeRow(imgs[0]); makeRow(imgs[1]); }
+                else if (count === 3) { makeRow(imgs[0]); makeRow(imgs[1], imgs[2]); }
+                else { makeRow(imgs[0]); makeRow(imgs[1], imgs[2], imgs[3]); }
             });
         }
 
-        // Immediately remove any broken image and rebuild its grid
+        // Attach error handlers before anything loads
         document.querySelectorAll('.proj-images img').forEach(img => {
-            if (img.complete && img.naturalWidth === 0) {
-                img.remove(); // already broken on parse
-            } else {
-                img.addEventListener('error', () => { img.remove(); buildGrids(); });
-            }
+            img.addEventListener('error', () => { img.remove(); buildGrids(); });
         });
 
-        // Build after all valid images have loaded
+        // Run once everything is loaded
         window.addEventListener('load', buildGrids);
 
         /* ── Project row click ── */
