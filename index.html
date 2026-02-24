@@ -828,10 +828,10 @@
                 </div>
             </div>
             <div class="proj-images">
-                <img src="assets/thumbs/environments.jpg" alt="Environments">
-                <img src="assets/thumbs/env_1.jpg" alt="Environments 1">
-                <img src="assets/thumbs/env_2.jpg" alt="Environments 2">
-                <img src="assets/thumbs/env_3.jpg" alt="Environments 3">
+                <img data-src="assets/thumbs/environments.jpg" alt="Environments">
+                <img data-src="assets/thumbs/env_1.jpg" alt="Environments 1">
+                <img data-src="assets/thumbs/env_2.jpg" alt="Environments 2">
+                <img data-src="assets/thumbs/env_3.jpg" alt="Environments 3">
             </div>
         </div>
 
@@ -850,9 +850,9 @@
                 </div>
             </div>
             <div class="proj-images">
-                <img src="assets/thumbs/tools.jpg" alt="Tools">
-                <img src="assets/thumbs/tools_1.jpg" alt="Tools 1">
-                <img src="assets/thumbs/tools_2.jpg" alt="Tools 2">
+                <img data-src="assets/thumbs/tools.jpg" alt="Tools">
+                <img data-src="assets/thumbs/tools_1.jpg" alt="Tools 1">
+                <img data-src="assets/thumbs/tools_2.jpg" alt="Tools 2">
             </div>
         </div>
 
@@ -871,10 +871,10 @@
                 </div>
             </div>
             <div class="proj-images">
-                <img src="assets/thumbs/games.jpg" alt="Games">
-                <img src="assets/thumbs/games_1.jpg" alt="Games 1">
-                <img src="assets/thumbs/games_2.jpg" alt="Games 2">
-                <img src="assets/thumbs/games_3.jpg" alt="Games 3">
+                <img data-src="assets/thumbs/games.jpg" alt="Games">
+                <img data-src="assets/thumbs/games_1.jpg" alt="Games 1">
+                <img data-src="assets/thumbs/games_2.jpg" alt="Games 2">
+                <img data-src="assets/thumbs/games_3.jpg" alt="Games 3">
             </div>
         </div>
 
@@ -893,8 +893,8 @@
                 </div>
             </div>
             <div class="proj-images">
-                <img src="assets/thumbs/models.jpg" alt="Models">
-                <img src="assets/thumbs/models_1.jpg" alt="Models 1">
+                <img data-src="assets/thumbs/models.jpg" alt="Models">
+                <img data-src="assets/thumbs/models_1.jpg" alt="Models 1">
             </div>
         </div>
 
@@ -978,54 +978,54 @@
         });
 
         /* ── Dynamic image grid ── */
-        function buildGrids() {
-            document.querySelectorAll('.proj-images').forEach(grid => {
+        function buildGrid(grid) {
+            const srcs = Array.from(grid.querySelectorAll('img[data-src]'))
+                .map(img => ({ src: img.getAttribute('data-src'), alt: img.alt }));
 
-                // Grab all imgs still present (broken ones already removed via error handler)
-                const imgs = Array.from(grid.querySelectorAll('img'))
-                    .filter(img => img.complete && img.naturalWidth > 0);
+            if (srcs.length === 0) { grid.style.display = 'none'; return; }
 
-                // Detach live imgs so we can clear and rebuild without losing them
-                imgs.forEach(img => img.remove());
+            // Test every image — resolve with src if it loads, null if it fails
+            const tests = srcs.map(({ src, alt }) => new Promise(resolve => {
+                const t = new Image();
+                t.onload = () => resolve({ src, alt, el: t });
+                t.onerror = () => resolve(null);
+                t.src = src;
+            }));
+
+            Promise.all(tests).then(results => {
+                const good = results.filter(Boolean).slice(0, 4);
+
                 grid.innerHTML = '';
 
-                if (imgs.length === 0) {
-                    grid.style.display = 'none';
-                    return;
-                }
+                if (good.length === 0) { grid.style.display = 'none'; return; }
 
                 grid.style.display = '';
-                const count = Math.min(imgs.length, 4);
-                grid.setAttribute('data-count', String(count));
+                grid.setAttribute('data-count', good.length);
 
-                function makeThumb(img) {
-                    const t = document.createElement('div');
-                    t.className = 'thumb';
-                    t.appendChild(img);
-                    return t;
+                function makeThumb(item) {
+                    const wrap = document.createElement('div');
+                    wrap.className = 'thumb';
+                    item.el.alt = item.alt;
+                    wrap.appendChild(item.el);
+                    return wrap;
                 }
 
-                function makeRow(...rowImgs) {
+                function makeRow(...items) {
                     const row = document.createElement('div');
                     row.className = 'thumb-row';
-                    rowImgs.forEach(img => row.appendChild(makeThumb(img)));
+                    items.forEach(i => row.appendChild(makeThumb(i)));
                     grid.appendChild(row);
                 }
 
-                if (count === 1) { makeRow(imgs[0]); }
-                else if (count === 2) { makeRow(imgs[0]); makeRow(imgs[1]); }
-                else if (count === 3) { makeRow(imgs[0]); makeRow(imgs[1], imgs[2]); }
-                else { makeRow(imgs[0]); makeRow(imgs[1], imgs[2], imgs[3]); }
+                const n = good.length;
+                if (n === 1) { makeRow(good[0]); }
+                else if (n === 2) { makeRow(good[0]); makeRow(good[1]); }
+                else if (n === 3) { makeRow(good[0]); makeRow(good[1], good[2]); }
+                else { makeRow(good[0]); makeRow(good[1], good[2], good[3]); }
             });
         }
 
-        // Attach error handlers before anything loads
-        document.querySelectorAll('.proj-images img').forEach(img => {
-            img.addEventListener('error', () => { img.remove(); buildGrids(); });
-        });
-
-        // Run once everything is loaded
-        window.addEventListener('load', buildGrids);
+        document.querySelectorAll('.proj-images').forEach(grid => buildGrid(grid));
 
         /* ── Project row click ── */
         document.querySelectorAll('.project-row').forEach(row =>
