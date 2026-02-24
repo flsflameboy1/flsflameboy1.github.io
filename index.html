@@ -61,7 +61,7 @@
             font-size: 14px;
         }
 
-        /* Headline area (this is where project title info lives) */
+        /* Headline area */
         .headline {
             margin-top: 8px;
             margin-bottom: 18px;
@@ -121,7 +121,7 @@
             white-space: nowrap;
         }
 
-        /* Project thumbnails grid (pure images only) */
+        /* Project thumbnails grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0,1fr));
@@ -159,7 +159,7 @@
 
         /* PURE THUMB */
         .thumb {
-            height: 420px; /* adjust */
+            height: 420px;
             background: radial-gradient(420px 260px at 30% 35%, rgba(35,240,208,0.12), transparent 60%), radial-gradient(420px 260px at 70% 65%, rgba(35,240,208,0.08), transparent 60%), rgba(255,255,255,0.02);
         }
 
@@ -300,7 +300,6 @@
             <p class="studioSub">Technical Artist • Environment Artist • Houdini • Unreal</p>
         </div>
 
-        <!-- THIS is now your "title area" like the reference -->
         <div class="headline" aria-live="polite">
             <p class="headlineSmall" id="hCategory">Elements</p>
             <h2 class="headlineBig" id="hTitle">Keep the focus in these elements.</h2>
@@ -316,7 +315,7 @@
             </div>
         </div>
 
-        <!-- Thumbnails ONLY (no overlay text inside) -->
+        <!-- Thumbnails ONLY -->
         <div class="grid">
 
             <a class="card project"
@@ -422,7 +421,7 @@
     </div>
 
     <script>
-        // ---- Dock modal logic (unchanged behavior) ----
+        // ---- Dock modal logic ----
         document.querySelectorAll("[data-open]").forEach(btn => {
             btn.addEventListener("click", () => {
                 const id = btn.getAttribute("data-open");
@@ -449,21 +448,23 @@
             }
         });
 
-        // ---- Headline updates (THIS is the key change) ----
+        // ---- Headline updates for ALL thumbnails ----
         const hCategory = document.getElementById("hCategory");
         const hTitle = document.getElementById("hTitle");
         const hDesc = document.getElementById("hDesc");
         const hTags = document.getElementById("hTags");
 
-        const projects = Array.from(document.querySelectorAll(".project"));
-
+        const projects = Array.from(document.querySelectorAll(".card.project"));
         let locked = null;
 
         function setHeadlineFrom(el) {
             const cat = el.dataset.category || "Elements";
             const title = el.dataset.title || "Keep the focus in these elements.";
             const desc = el.dataset.desc || "";
-            const tags = (el.dataset.tags || "").split(",").map(s => s.trim()).filter(Boolean);
+            const tags = (el.dataset.tags || "")
+                .split(",")
+                .map(s => s.trim())
+                .filter(Boolean);
 
             hCategory.textContent = cat;
             hTitle.textContent = title.toUpperCase();
@@ -489,8 +490,8 @@
             hTags.innerHTML = `<span class="tag">Hover</span><span class="tag">Select</span><span class="tag">Explore</span>`;
         }
 
-        // Default selection: first project (optional). If you want default empty, remove this.
-        if (projects[0]) {
+        // Start with first project selected (optional)
+        if (projects.length > 0) {
             locked = projects[0];
             setHeadlineFrom(locked);
         } else {
@@ -498,21 +499,23 @@
         }
 
         projects.forEach(card => {
-            card.addEventListener("mouseenter", () => {
-                if (!locked) setHeadlineFrom(card);
-                else setHeadlineFrom(card); // preview even when locked? remove if you don't want
-            });
-
+            // ALWAYS preview on hover
+            card.addEventListener("mouseenter", () => setHeadlineFrom(card));
             card.addEventListener("focus", () => setHeadlineFrom(card));
 
+            // Revert to locked when leaving
             card.addEventListener("mouseleave", () => {
                 if (locked) setHeadlineFrom(locked);
                 else resetHeadline();
             });
+            card.addEventListener("blur", () => {
+                if (locked) setHeadlineFrom(locked);
+                else resetHeadline();
+            });
 
-            // Click locks the headline to that project
+            // Click locks the selection (optional prevent navigation)
             card.addEventListener("click", (e) => {
-                // If you want click to LOCK without navigating, uncomment next line:
+                // If you want click to LOCK without navigating, uncomment:
                 // e.preventDefault();
 
                 locked = card;
