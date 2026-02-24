@@ -1,861 +1,691 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sayyam Gaur — Portfolio</title>
-    <meta name="description" content="Technical Artist • Environment Artist • Houdini • Unreal" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-
-    <style>
-        /* ─── Tokens ─────────────────────────────────────────── */
-        :root {
-            --bg: #050505;
-            --teal: #23f0d0;
-            --teal-dim: rgba(35,240,208,0.18);
-            --white: #f0ede8;
-            --muted: rgba(240,237,232,0.42);
-            --line: rgba(240,237,232,0.1);
-            --display: 'Bebas Neue', sans-serif;
-            --body: 'DM Sans', sans-serif;
-        }
-
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--white);
-            font-family: var(--body);
-            font-weight: 300;
-            line-height: 1.5;
-            overflow-x: hidden;
-        }
-
-        /* ─── Header ─────────────────────────────────────────── */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 22px 40px;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.3s, background 0.3s, backdrop-filter 0.3s;
-        }
-
-            header.scrolled {
-                border-color: var(--line);
-                background: rgba(5,5,5,0.8);
-                backdrop-filter: blur(12px);
-            }
-
-        .logo {
-            font-family: var(--display);
-            font-size: 22px;
-            letter-spacing: 0.12em;
-            color: var(--white);
-            text-decoration: none;
-        }
-
-            .logo span {
-                color: var(--teal);
-            }
-
-        nav {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-        }
-
-            nav a {
-                font-size: 12px;
-                letter-spacing: 0.18em;
-                text-transform: uppercase;
-                color: var(--muted);
-                text-decoration: none;
-                transition: color 0.2s;
-            }
-
-                nav a:hover {
-                    color: var(--teal);
-                }
-
-        .nav-cta {
-            font-size: 12px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--bg);
-            background: var(--teal);
-            padding: 9px 18px;
-            border-radius: 2px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-
-            .nav-cta:hover {
-                opacity: 0.85;
-                color: var(--bg);
-            }
-
-        /* ─── Hero ───────────────────────────────────────────── */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 0 40px 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-            /* subtle grid texture */
-            .hero::before {
-                content: '';
-                position: absolute;
-                inset: 0;
-                background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
-                background-size: 80px 80px;
-                mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
-                opacity: 0.4;
-                pointer-events: none;
-            }
-
-        .hero-eyebrow {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-            .hero-eyebrow span {
-                font-size: 11px;
-                letter-spacing: 0.22em;
-                text-transform: uppercase;
-                color: var(--teal);
-            }
-
-            .hero-eyebrow::before {
-                content: '';
-                display: block;
-                width: 40px;
-                height: 1px;
-                background: var(--teal);
-            }
-
-        .hero-title {
-            font-family: var(--display);
-            font-size: clamp(72px, 13vw, 180px);
-            line-height: 0.9;
-            letter-spacing: -0.01em;
-            color: var(--white);
-            position: relative;
-            z-index: 1;
-        }
-
-            .hero-title .outline {
-                -webkit-text-stroke: 1px var(--white);
-                color: transparent;
-            }
-
-            .hero-title .teal {
-                color: var(--teal);
-            }
-
-        .hero-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 40px;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-
-        .hero-desc {
-            max-width: 38ch;
-            font-size: 14px;
-            color: var(--muted);
-            line-height: 1.7;
-        }
-        /* ─── PFP ────────────────────────────────────────────── */
-        .hero-pfp-wrap {
-            position: relative;
-            z-index: 2;
-            margin-bottom: 32px;
-        }
-
-        .hero-pfp {
-            width: 270px;
-            height: 270px;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: center top;
-            border: 2px solid var(--teal-dim);
-            box-shadow: 0 0 0 8px rgba(35,240,208,0.04), 0 0 40px rgba(35,240,208,0.15), 0 20px 60px rgba(0,0,0,0.6);
-            display: block;
-            filter: saturate(1.1);
-        }
-
-        .hero-pfp-wrap::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: calc(270px + 20px);
-            height: calc(270px + 20px);
-            border-radius: 50%;
-            border: 1px solid var(--teal-dim);
-            animation: glowPulse 3s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        .hero-pfp-wrap::after {
-            content: '';
-            position: absolute;
-            top: -22px;
-            left: -22px;
-            width: calc(270px + 44px);
-            height: calc(270px + 44px);
-            border-radius: 50%;
-            border: 1px solid rgba(35,240,208,0.06);
-            animation: glowPulse 3s ease-in-out infinite 0.8s;
-            pointer-events: none;
-        }
-
-        @keyframes glowPulse {
-            0%, 100% {
-                opacity: 0.4;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 1;
-                transform: scale(1.02);
-            }
-        }
-
-        /* ─── Section common ─────────────────────────────────── */
-        section {
-            padding: 0 40px;
-        }
-
-        .section-label {
-            font-size: 11px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--teal);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 50px;
-        }
-
-            .section-label::after {
-                content: '';
-                flex: 1;
-                height: 1px;
-                background: var(--line);
-            }
-
-        /* ─── Work / Projects ────────────────────────────────── */
-        .work {
-            padding-top: 120px;
-            padding-bottom: 120px;
-        }
-
-        .project-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border-top: 1px solid var(--line);
-            min-height: 360px;
-            transition: background 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-            .project-row:last-child {
-                border-bottom: 1px solid var(--line);
-            }
-
-            .project-row:hover {
-                background: rgba(255,255,255,0.018);
-            }
-
-        .proj-info {
-            padding: 44px 44px 44px 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .proj-number {
-            font-size: 11px;
-            letter-spacing: 0.22em;
-            color: var(--muted);
-        }
-
-        .proj-title-wrap {
-            margin-top: 16px;
-        }
-
-        .proj-name {
-            font-family: var(--display);
-            font-size: clamp(42px, 5vw, 72px);
-            line-height: 0.95;
-            letter-spacing: 0.04em;
-            color: var(--white);
-            text-transform: uppercase;
-            transition: color 0.2s;
-        }
-
-        .project-row:hover .proj-name {
-            color: var(--teal);
-        }
-
-        .proj-sub {
-            font-size: 13px;
-            color: var(--muted);
-            margin-top: 14px;
-            max-width: 36ch;
-            line-height: 1.7;
-        }
-
-        .proj-foot {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 28px;
-        }
-
-        .tag {
-            font-size: 10px;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            padding: 5px 10px;
-            border: 1px solid var(--line);
-            border-radius: 2px;
-            color: var(--muted);
-        }
-
-        /* arrow */
-
-        /* ── Image panel ── */
-        .proj-images {
-            border-left: 1px solid var(--line);
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            min-height: 340px;
-            max-height: 340px;
-            overflow: hidden;
-        }
-
-        /* rows inside the panel */
-        .thumb-row {
-            display: flex;
-            gap: 10px;
-            flex: 1;
-        }
-
-        .thumb {
-            flex: 1;
-            border-radius: 4px;
-            overflow: hidden;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--line);
-            min-height: 0;
-        }
-
-        /* count=1: single row, single thumb fills everything */
-        .proj-images[data-count="1"] .thumb-row {
-            flex: 1;
-        }
-
-        /* count=2: top row big (2/3), bottom row small (1/3) */
-        .proj-images[data-count="2"] .thumb-row:first-child {
-            flex: 2;
-        }
-
-        .proj-images[data-count="2"] .thumb-row:last-child {
-            flex: 1;
-        }
-
-        /* count=3: top row big (2/3), bottom row two smalls (1/3) */
-        .proj-images[data-count="3"] .thumb-row:first-child {
-            flex: 2;
-        }
-
-        .proj-images[data-count="3"] .thumb-row:last-child {
-            flex: 1;
-        }
-
-        /* count=4: top row big (1/2), bottom row three smalls (1/2) */
-        .proj-images[data-count="4"] .thumb-row:first-child {
-            flex: 1;
-        }
-
-        .proj-images[data-count="4"] .thumb-row:last-child {
-            flex: 1;
-        }
-
-        .thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .project-row:hover .thumb img {
-            transform: scale(1.04);
-        }
-
-        /* placeholder shimmer while images load */
-        .thumb-placeholder {
-            background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0.03) 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            min-height: 300px;
-        }
-
-        @keyframes shimmer {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
-        }
-
-        /* when no images exist at all */
-        .proj-images.no-images {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 300px;
-            border-left: 1px solid var(--line);
-        }
-
-            .proj-images.no-images::after {
-                content: 'Images coming soon';
-                font-size: 11px;
-                letter-spacing: 0.18em;
-                text-transform: uppercase;
-                color: var(--muted);
-                opacity: 0.4;
-            }
-
-        /* ─── About strip ────────────────────────────────────── */
-        .about-strip {
-            padding-top: 100px;
-            padding-bottom: 100px;
-            border-top: 1px solid var(--line);
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 80px;
-            align-items: start;
-        }
-
-        .about-left {
-        }
-
-        .about-heading {
-            font-family: var(--display);
-            font-size: clamp(48px, 6vw, 88px);
-            line-height: 0.92;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-        }
-
-            .about-heading span {
-                color: var(--teal);
-            }
-
-        .about-right {
-        }
-
-        .about-body {
-            font-size: 15px;
-            color: var(--muted);
-            line-height: 1.8;
-            max-width: 60ch;
-        }
-
-            .about-body p + p {
-                margin-top: 18px;
-            }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--line);
-            border: 1px solid var(--line);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 40px;
-        }
-
-        .skill-cell {
-            background: var(--bg);
-            padding: 20px 18px;
-            font-size: 12px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--muted);
-            transition: background 0.2s, color 0.2s;
-        }
-
-            .skill-cell:hover {
-                background: var(--teal-dim);
-                color: var(--teal);
-            }
-
-        /* ─── Footer ─────────────────────────────────────────── */
-        footer {
-            border-top: 1px solid var(--line);
-            padding: 40px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .footer-name {
-            font-family: var(--display);
-            font-size: 28px;
-            letter-spacing: 0.08em;
-            color: var(--white);
-        }
-
-            .footer-name span {
-                color: var(--teal);
-            }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-            .footer-links a {
-                font-size: 12px;
-                letter-spacing: 0.15em;
-                text-transform: uppercase;
-                color: var(--muted);
-                text-decoration: none;
-                transition: color 0.2s;
-            }
-
-                .footer-links a:hover {
-                    color: var(--teal);
-                }
-
-        .footer-copy {
-            font-size: 11px;
-            color: var(--muted);
-            opacity: 0.5;
-        }
-
-        /* ─── Modal ──────────────────────────────────────────── */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(5,5,5,0.85);
-            backdrop-filter: blur(8px);
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s;
-        }
-
-            .overlay.open {
-                opacity: 1;
-                pointer-events: auto;
-            }
-
-        .modal {
-            width: min(560px, 100%);
-            border: 1px solid var(--line);
-            border-radius: 6px;
-            background: #0c0c0c;
-            padding: 36px;
-            position: relative;
-            transform: translateY(20px);
-            transition: transform 0.25s;
-        }
-
-        .overlay.open .modal {
-            transform: translateY(0);
-        }
-
-        .modal-label {
-            font-size: 11px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--teal);
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-family: var(--display);
-            font-size: 44px;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-        }
-
-        .modal-body {
-            font-size: 14px;
-            color: var(--muted);
-            line-height: 1.8;
-        }
-
-            .modal-body a {
-                color: var(--teal);
-                text-underline-offset: 3px;
-            }
-
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: 1px solid var(--line);
-            color: var(--muted);
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: border-color 0.2s, color 0.2s;
-        }
-
-            .modal-close:hover {
-                border-color: var(--teal);
-                color: var(--teal);
-            }
-
-        /* ─── Page load animation ────────────────────────────── */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 0.8s ease forwards;
-        }
-
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .delay-1 {
-            animation-delay: 0.1s;
-        }
-
-        .delay-2 {
-            animation-delay: 0.25s;
-        }
-
-        .delay-3 {
-            animation-delay: 0.4s;
-        }
-
-        .delay-4 {
-            animation-delay: 0.55s;
-        }
-
-        /* ─── Responsive ─────────────────────────────────────── */
-        @media (max-width: 860px) {
-            header {
-                padding: 18px 22px;
-            }
-
-            nav {
-                gap: 18px;
-            }
-
-            .hero {
-                padding: 0 22px 50px;
-            }
-
-            section {
-                padding: 0 22px;
-            }
-
-            footer {
-                padding: 32px 22px;
-            }
-
-            .project-row {
-                grid-template-columns: 1fr;
-                min-height: auto;
-            }
-
-            .proj-info {
-                padding: 30px 0 24px;
-            }
-
-            .proj-images {
-                border-left: none;
-                border-top: 1px solid var(--line);
-                padding: 16px 0;
-                min-height: 180px;
-                flex-direction: row;
-            }
-            /* on mobile all rows become columns side by side */
-            .thumb-row {
-                flex-direction: column;
-            }
-
-            .about-strip {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .skills-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sayyam Gaur — Portfolio</title>
+  <meta name="description" content="Technical Artist • Environment Artist • Houdini • Unreal" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Tokens ─────────────────────────────────────────── */
+    :root {
+      --bg:       #050505;
+      --teal:     #23f0d0;
+      --teal-dim: rgba(35,240,208,0.18);
+      --white:    #f0ede8;
+      --muted:    rgba(240,237,232,0.42);
+      --line:     rgba(240,237,232,0.1);
+      --display:  'Bebas Neue', sans-serif;
+      --body:     'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--body);
+      font-weight: 300;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* ─── Header ─────────────────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 40px;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s, backdrop-filter 0.3s;
+    }
+    header.scrolled {
+      border-color: var(--line);
+      background: rgba(5,5,5,0.8);
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      font-family: var(--display);
+      font-size: 22px;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .logo span { color: var(--teal); }
+
+    nav { display: flex; gap: 32px; align-items: center; }
+    nav a {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--teal); }
+
+    .nav-cta {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--teal);
+      padding: 9px 18px;
+      border-radius: 2px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; color: var(--bg); }
+
+    /* ─── Hero ───────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 40px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle grid texture */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow span {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--teal);
+    }
+
+    .hero-title {
+      font-family: var(--display);
+      font-size: clamp(72px, 13vw, 180px);
+      line-height: 0.9;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      position: relative;
+      z-index: 1;
+    }
+    .hero-title .outline {
+      -webkit-text-stroke: 1px var(--white);
+      color: transparent;
+    }
+    .hero-title .teal { color: var(--teal); }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 40px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hero-desc {
+      max-width: 38ch;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    /* ─── PFP ────────────────────────────────────────────── */
+    .hero-pfp-wrap {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 32px;
+    }
+
+    .hero-pfp {
+      width: 270px;
+      height: 270px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid var(--teal-dim);
+      box-shadow:
+        0 0 0 8px rgba(35,240,208,0.04),
+        0 0 40px rgba(35,240,208,0.15),
+        0 20px 60px rgba(0,0,0,0.6);
+      display: block;
+      filter: saturate(1.1);
+    }
+
+    .hero-pfp-wrap::before {
+      content: '';
+      position: absolute;
+      top: -10px; left: -10px;
+      width: calc(270px + 20px);
+      height: calc(270px + 20px);
+      border-radius: 50%;
+      border: 1px solid var(--teal-dim);
+      animation: glowPulse 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .hero-pfp-wrap::after {
+      content: '';
+      position: absolute;
+      top: -22px; left: -22px;
+      width: calc(270px + 44px);
+      height: calc(270px + 44px);
+      border-radius: 50%;
+      border: 1px solid rgba(35,240,208,0.06);
+      animation: glowPulse 3s ease-in-out infinite 0.8s;
+      pointer-events: none;
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    /* ─── Section common ─────────────────────────────────── */
+    section { padding: 0 40px; }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 50px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    /* ─── Work / Projects ────────────────────────────────── */
+    .work { padding-top: 120px; padding-bottom: 120px; }
+
+    .project-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--line);
+      min-height: 360px;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-row:last-child { border-bottom: 1px solid var(--line); }
+    .project-row:hover { background: rgba(255,255,255,0.018); }
+
+    .proj-info {
+      padding: 44px 44px 44px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .proj-number {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+    }
+
+    .proj-title-wrap { margin-top: 16px; }
+
+    .proj-name {
+      font-family: var(--display);
+      font-size: clamp(42px, 5vw, 72px);
+      line-height: 0.95;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .project-row:hover .proj-name { color: var(--teal); }
+
+    .proj-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 14px;
+      max-width: 36ch;
+      line-height: 1.7;
+    }
+
+    .proj-foot {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    .tag {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      color: var(--muted);
+    }
+
+    /* arrow */
+
+    /* ── Image panel ── */
+    .proj-images {
+      border-left: 1px solid var(--line);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 340px;
+      max-height: 340px;
+      overflow: hidden;
+    }
+
+    /* rows inside the panel */
+    .thumb-row {
+      display: flex;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .thumb {
+      flex: 1;
+      border-radius: 4px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      min-height: 0;
+    }
+
+    /* count=1: single row, single thumb fills everything */
+    .proj-images[data-count="1"] .thumb-row { flex: 1; }
+
+    /* count=2: top row big (2/3), bottom row small (1/3) */
+    .proj-images[data-count="2"] .thumb-row:first-child { flex: 2; }
+    .proj-images[data-count="2"] .thumb-row:last-child  { flex: 1; }
+
+    /* count=3: top row big (2/3), bottom row two smalls (1/3) */
+    .proj-images[data-count="3"] .thumb-row:first-child { flex: 2; }
+    .proj-images[data-count="3"] .thumb-row:last-child  { flex: 1; }
+
+    /* count=4: top row big (1/2), bottom row three smalls (1/2) */
+    .proj-images[data-count="4"] .thumb-row:first-child { flex: 1; }
+    .proj-images[data-count="4"] .thumb-row:last-child  { flex: 1; }
+
+    .thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .project-row:hover .thumb img { transform: scale(1.04); }
+
+    /* placeholder shimmer while images load */
+    .thumb-placeholder {
+      background: linear-gradient(90deg,
+        rgba(255,255,255,0.03) 25%,
+        rgba(255,255,255,0.07) 50%,
+        rgba(255,255,255,0.03) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      min-height: 300px;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* when no images exist at all */
+    .proj-images.no-images {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      border-left: 1px solid var(--line);
+    }
+    .proj-images.no-images::after {
+      content: 'Images coming soon';
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.4;
+    }
+
+    /* ─── About strip ────────────────────────────────────── */
+    .about-strip {
+      padding-top: 100px;
+      padding-bottom: 100px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-left { }
+    .about-heading {
+      font-family: var(--display);
+      font-size: clamp(48px, 6vw, 88px);
+      line-height: 0.92;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .about-heading span { color: var(--teal); }
+
+    .about-right { }
+    .about-body {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 60ch;
+    }
+    .about-body p + p { margin-top: 18px; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 40px;
+    }
+    .skill-cell {
+      background: var(--bg);
+      padding: 20px 18px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: background 0.2s, color 0.2s;
+    }
+    .skill-cell:hover { background: var(--teal-dim); color: var(--teal); }
+
+    /* ─── Footer ─────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 40px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-name {
+      font-family: var(--display);
+      font-size: 28px;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+    .footer-name span { color: var(--teal); }
+
+    .footer-links { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--teal); }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.5;
+    }
+
+    /* ─── Modal ──────────────────────────────────────────── */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,5,5,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .overlay.open { opacity: 1; pointer-events: auto; }
+
+    .modal {
+      width: min(560px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #0c0c0c;
+      padding: 36px;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.25s;
+    }
+    .overlay.open .modal { transform: translateY(0); }
+
+    .modal-label {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 20px;
+    }
+    .modal-title {
+      font-family: var(--display);
+      font-size: 44px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .modal-body {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .modal-body a { color: var(--teal); text-underline-offset: 3px; }
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .modal-close:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* ─── Page load animation ────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.25s; }
+    .delay-3 { animation-delay: 0.4s; }
+    .delay-4 { animation-delay: 0.55s; }
+
+    /* ─── Responsive ─────────────────────────────────────── */
+    @media (max-width: 860px) {
+      header { padding: 18px 22px; }
+      nav { gap: 18px; }
+      .hero { padding: 0 22px 50px; }
+      section { padding: 0 22px; }
+      footer { padding: 32px 22px; }
+      .project-row {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .proj-info { padding: 30px 0 24px; }
+      .proj-images {
+        border-left: none;
+        border-top: 1px solid var(--line);
+        padding: 16px 0;
+        min-height: 180px;
+        flex-direction: row;
+      }
+      /* on mobile all rows become columns side by side */
+      .thumb-row { flex-direction: column; }
+      .about-strip {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
 </head>
 
 <body>
-    <!-- ─── Header ─── -->
-    <header id="header">
-        <a href="#" class="logo">SG<span>.</span></a>
-        <nav>
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="assets/resume/Sayyam_Gaur_Resume.pdf" target="_blank" rel="noopener">Resume</a>
-            <a href="#contact" class="nav-cta">Contact</a>
-        </nav>
-    </header>
+  <!-- ─── Header ─── -->
+  <header id="header">
+    <a href="#" class="logo">SG<span>.</span></a>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="assets/resume/Sayyam_Gaur_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </nav>
+  </header>
 
-    <!-- ─── Hero ─── -->
-    <section class="hero">
+  <!-- ─── Hero ─── -->
+  <section class="hero">
 
-        <!-- Profile photo floats in the empty space above the title -->
-        <div class="hero-pfp-wrap fade-up">
-            <img class="hero-pfp" src="assets/pfp.jpg" alt="Sayyam Gaur">
-        </div>
-
-        <div class="hero-eyebrow fade-up delay-1">
-            <span>Game Developer &amp; Technical Artist</span>
-        </div>
-        <h1 class="hero-title">
-            <div class="fade-up delay-2">SAYYAM</div>
-            <div class="fade-up delay-3"><span class="outline">GAUR</span></div>
-        </h1>
-        <div class="hero-bottom fade-up delay-4">
-            <p class="hero-desc">
-                Passionate game designer, developer, and artist dedicated to crafting
-                immersive, emotionally engaging experiences — from procedural environments
-                and editor tooling to gameplay systems and real-time pipelines.
-            </p>
-        </div>
-    </section>
-
-    <!-- ─── Work ─── -->
-    <section class="work" id="work">
-        <p class="section-label">Selected Work</p>
-        <div id="projects-container"></div>
-    </section>
-
-    <!-- ─── About ─── -->
-    <section class="about-strip" id="about">
-        <div class="about-left">
-            <p class="section-label" style="margin-bottom:24px;">About</p>
-            <h2 class="about-heading">Who<br>I <span>Am</span></h2>
-        </div>
-        <div class="about-right">
-            <div class="about-body">
-                <p>
-                    I'm Sayyam — a game developer, technical artist, and environment artist currently completing my MSc in Technical Arts &amp; Visual Effects at Abertay University, Dundee. With a background spanning industry experience, freelance work, and a BA in Computer Arts, I bridge the gap between art and engineering.
-                </p>
-                <p>
-                    Previously at Polyphonic Technologies, I delivered 3D levels for multiple clients using Unreal Engine 4–5 and Unity, worked on shaders, blueprints, C++ for gameplay, and integrated APIs and plugins into live projects. I'm fluent in English, Hindi, and intermediate French.
-                </p>
-            </div>
-
-            <div class="skills-grid" style="margin-top:40px;">
-                <div class="skill-cell">Houdini</div>
-                <div class="skill-cell">Unreal Engine</div>
-                <div class="skill-cell">C++ / Slate</div>
-                <div class="skill-cell">3ds Max</div>
-                <div class="skill-cell">AutoDesk Maya</div>
-                <div class="skill-cell">Unity / C#</div>
-                <div class="skill-cell">Substance Designer</div>
-                <div class="skill-cell">Substance Painter</div>
-                <div class="skill-cell">Adobe Photoshop</div>
-                <div class="skill-cell">After Effects</div>
-                <div class="skill-cell">Premiere Pro</div>
-                <div class="skill-cell">PBR Pipeline</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ─── Footer / Contact ─── -->
-    <footer id="contact">
-        <div>
-            <p class="footer-name">Sayyam<span>.</span></p>
-            <p style="font-size:13px; color:var(--muted); margin-top:6px;">
-                <a href="/cdn-cgi/l/email-protection#89dbe6eae2e0e7eee1e8e4fafdecfbfac9eee4e8e0e5a7eae6e4" style="color:var(--teal); text-underline-offset:3px;"><span class="__cf_email__" data-cfemail="e4b68b878f8d8a838c85899790819697a48389858d88ca878b89">[email&#160;protected]</span></a>
-            </p>
-        </div>
-        <div class="footer-links">
-            <a href="assets/resume/Sayyam_Gaur_Resume.pdf" target="_blank">Resume</a>
-            <a href="https://www.artstation.com/sayyambharadwaj6" target="_blank">ArtStation</a>
-            <a href="https://linkedin.com/in/sayyam-gaur-1640b3204" target="_blank">LinkedIn</a>
-            <a href="#" id="openAbout">About</a>
-        </div>
-        <p class="footer-copy">© 2025 Sayyam Gaur</p>
-    </footer>
-
-    <!-- About modal -->
-    <div class="overlay" id="aboutOverlay">
-        <div class="modal">
-            <p class="modal-label">About</p>
-            <h2 class="modal-title">Sayyam Gaur</h2>
-            <div class="modal-body">
-                <p>Technical Artist &amp; Game Developer currently completing MSc in Technical Arts &amp; Visual Effects at Abertay University, Dundee. Previously at Polyphonic Technologies — delivering 3D levels, shaders, blueprints, and C++ for Unreal and Unity projects.</p>
-                <p style="margin-top:14px;">
-                    Email: <a href="/cdn-cgi/l/email-protection#c89aa7aba3a1a6afa0a9a5bbbcadbabb88afa5a9a1a4e6aba7a5"><span class="__cf_email__" data-cfemail="2f7d404c44464148474e425c5b4a5d5c6f48424e4643014c4042">[email&#160;protected]</span></a><br>
-                    LinkedIn: <a href="https://linkedin.com/in/sayyam-gaur-1640b3204" target="_blank">linkedin.com/in/sayyam-gaur</a><br>
-                    ArtStation: <a href="https://www.artstation.com/sayyambharadwaj6" target="_blank">artstation.com/sayyambharadwaj6</a><br>
-                    UK: <a href="tel:+447818333173">+44 7818 333173</a>
-                </p>
-            </div>
-            <button class="modal-close" id="closeAbout">✕</button>
-        </div>
+    <!-- Profile photo floats in the empty space above the title -->
+    <div class="hero-pfp-wrap fade-up">
+      <img class="hero-pfp" src="assets/pfp.jpg" alt="Sayyam Gaur">
     </div>
 
-    <script>
+    <div class="hero-eyebrow fade-up delay-1">
+      <span>Game Developer &amp; Technical Artist</span>
+    </div>
+    <h1 class="hero-title">
+      <div class="fade-up delay-2">SAYYAM</div>
+      <div class="fade-up delay-3"><span class="outline">GAUR</span></div>
+    </h1>
+    <div class="hero-bottom fade-up delay-4">
+      <p class="hero-desc">
+        Passionate game designer, developer, and artist dedicated to crafting
+        immersive, emotionally engaging experiences — from procedural environments
+        and editor tooling to gameplay systems and real-time pipelines.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── Work ─── -->
+  <section class="work" id="work">
+    <p class="section-label">Selected Work</p>
+    <div id="projects-container"></div>
+  </section>
+
+  <!-- ─── About ─── -->
+  <section class="about-strip" id="about">
+    <div class="about-left">
+      <p class="section-label" style="margin-bottom:24px;">About</p>
+      <h2 class="about-heading">Who<br>I <span>Am</span></h2>
+    </div>
+    <div class="about-right">
+      <div class="about-body">
+        <p>
+          I'm Sayyam — a game developer, technical artist, and environment artist currently completing my MSc in Technical Arts &amp; Visual Effects at Abertay University, Dundee. With a background spanning industry experience, freelance work, and a BA in Computer Arts, I bridge the gap between art and engineering.
+        </p>
+        <p>
+          Previously at Polyphonic Technologies, I delivered 3D levels for multiple clients using Unreal Engine 4–5 and Unity, worked on shaders, blueprints, C++ for gameplay, and integrated APIs and plugins into live projects. I'm fluent in English, Hindi, and intermediate French.
+        </p>
+      </div>
+
+      <div class="skills-grid" style="margin-top:40px;">
+        <div class="skill-cell">Houdini</div>
+        <div class="skill-cell">Unreal Engine</div>
+        <div class="skill-cell">C++ / Slate</div>
+        <div class="skill-cell">3ds Max</div>
+        <div class="skill-cell">AutoDesk Maya</div>
+        <div class="skill-cell">Unity / C#</div>
+        <div class="skill-cell">Substance Designer</div>
+        <div class="skill-cell">Substance Painter</div>
+        <div class="skill-cell">Adobe Photoshop</div>
+        <div class="skill-cell">After Effects</div>
+        <div class="skill-cell">Premiere Pro</div>
+        <div class="skill-cell">PBR Pipeline</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer / Contact ─── -->
+  <footer id="contact">
+    <div>
+      <p class="footer-name">Sayyam<span>.</span></p>
+      <p style="font-size:13px; color:var(--muted); margin-top:6px;">
+        <a href="/cdn-cgi/l/email-protection#89dbe6eae2e0e7eee1e8e4fafdecfbfac9eee4e8e0e5a7eae6e4" style="color:var(--teal); text-underline-offset:3px;"><span class="__cf_email__" data-cfemail="e4b68b878f8d8a838c85899790819697a48389858d88ca878b89">[email&#160;protected]</span></a>
+      </p>
+    </div>
+    <div class="footer-links">
+      <a href="assets/resume/Sayyam_Gaur_Resume.pdf" target="_blank">Resume</a>
+      <a href="https://www.artstation.com/sayyambharadwaj6" target="_blank">ArtStation</a>
+      <a href="https://linkedin.com/in/sayyam-gaur-1640b3204" target="_blank">LinkedIn</a>
+      <a href="#" id="openAbout">About</a>
+    </div>
+    <p class="footer-copy">© 2025 Sayyam Gaur</p>
+  </footer>
+
+  <!-- About modal -->
+  <div class="overlay" id="aboutOverlay">
+    <div class="modal">
+      <p class="modal-label">About</p>
+      <h2 class="modal-title">Sayyam Gaur</h2>
+      <div class="modal-body">
+        <p>Technical Artist &amp; Game Developer currently completing MSc in Technical Arts &amp; Visual Effects at Abertay University, Dundee. Previously at Polyphonic Technologies — delivering 3D levels, shaders, blueprints, and C++ for Unreal and Unity projects.</p>
+        <p style="margin-top:14px;">
+          Email: <a href="/cdn-cgi/l/email-protection#c89aa7aba3a1a6afa0a9a5bbbcadbabb88afa5a9a1a4e6aba7a5"><span class="__cf_email__" data-cfemail="2f7d404c44464148474e425c5b4a5d5c6f48424e4643014c4042">[email&#160;protected]</span></a><br>
+          LinkedIn: <a href="https://linkedin.com/in/sayyam-gaur-1640b3204" target="_blank">linkedin.com/in/sayyam-gaur</a><br>
+          ArtStation: <a href="https://www.artstation.com/sayyambharadwaj6" target="_blank">artstation.com/sayyambharadwaj6</a><br>
+          UK: <a href="tel:+447818333173">+44 7818 333173</a>
+        </p>
+      </div>
+      <button class="modal-close" id="closeAbout">✕</button>
+    </div>
+  </div>
+
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
 
     /* ── Header on scroll ── */
@@ -1036,6 +866,6 @@
     })();
 
     }); // end DOMContentLoaded
-    </script>
+  </script>
 </body>
 </html>
