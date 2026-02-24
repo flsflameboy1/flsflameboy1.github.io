@@ -37,10 +37,9 @@
         .wrap {
             max-width: var(--max);
             margin: 0 auto;
-            padding: 44px 18px 120px; /* leave room for dock */
+            padding: 44px 18px 120px;
         }
 
-        /* Studio title */
         .studio {
             text-align: center;
             margin-bottom: 28px;
@@ -61,7 +60,7 @@
             font-size: 14px;
         }
 
-        /* Headline area */
+        /* Headline area (ALL TITLES GO HERE) */
         .headline {
             margin-top: 8px;
             margin-bottom: 18px;
@@ -121,7 +120,7 @@
             white-space: nowrap;
         }
 
-        /* Project thumbnails grid */
+        /* Thumbnails ONLY */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0,1fr));
@@ -143,8 +142,8 @@
             text-decoration: none;
             background: rgba(255,255,255,0.01);
             transition: transform 120ms ease, border-color 120ms ease;
-            position: relative;
             outline: none;
+            cursor: pointer;
         }
 
             .card:hover {
@@ -157,7 +156,6 @@
                 box-shadow: 0 0 0 3px rgba(35,240,208,0.20);
             }
 
-        /* PURE THUMB */
         .thumb {
             height: 420px;
             background: radial-gradient(420px 260px at 30% 35%, rgba(35,240,208,0.12), transparent 60%), radial-gradient(420px 260px at 70% 65%, rgba(35,240,208,0.08), transparent 60%), rgba(255,255,255,0.02);
@@ -300,6 +298,7 @@
             <p class="studioSub">Technical Artist • Environment Artist • Houdini • Unreal</p>
         </div>
 
+        <!-- TITLE AREA -->
         <div class="headline" aria-live="polite">
             <p class="headlineSmall" id="hCategory">Elements</p>
             <h2 class="headlineBig" id="hTitle">Keep the focus in these elements.</h2>
@@ -315,10 +314,10 @@
             </div>
         </div>
 
-        <!-- Thumbnails ONLY -->
+        <!-- THUMBNAILS ONLY -->
         <div class="grid">
 
-            <a class="card project"
+            <a id="proj1" class="card"
                href="#"
                target="_blank"
                rel="noopener"
@@ -331,7 +330,7 @@
                 </div>
             </a>
 
-            <a class="card project"
+            <a id="proj2" class="card"
                href="#"
                target="_blank"
                rel="noopener"
@@ -344,7 +343,7 @@
                 </div>
             </a>
 
-            <a class="card project"
+            <a id="proj3" class="card"
                href="#"
                target="_blank"
                rel="noopener"
@@ -357,7 +356,7 @@
                 </div>
             </a>
 
-            <a class="card project"
+            <a id="proj4" class="card"
                href="#"
                target="_blank"
                rel="noopener"
@@ -421,7 +420,7 @@
     </div>
 
     <script>
-        // ---- Dock modal logic ----
+        // --- Dock modal logic ---
         document.querySelectorAll("[data-open]").forEach(btn => {
             btn.addEventListener("click", () => {
                 const id = btn.getAttribute("data-open");
@@ -448,23 +447,23 @@
             }
         });
 
-        // ---- Headline updates for ALL thumbnails ----
+        // --- Headline update logic (WORKS FOR ALL CARDS) ---
         const hCategory = document.getElementById("hCategory");
         const hTitle = document.getElementById("hTitle");
         const hDesc = document.getElementById("hDesc");
         const hTags = document.getElementById("hTags");
 
-        const projects = Array.from(document.querySelectorAll(".card.project"));
+        // Select ALL elements that have data-title (so no class mistakes can break it)
+        const cards = Array.from(document.querySelectorAll("[data-title]"));
+
         let locked = null;
 
         function setHeadlineFrom(el) {
-            const cat = el.dataset.category || "Elements";
-            const title = el.dataset.title || "Keep the focus in these elements.";
-            const desc = el.dataset.desc || "";
-            const tags = (el.dataset.tags || "")
-                .split(",")
-                .map(s => s.trim())
-                .filter(Boolean);
+            const cat = el.getAttribute("data-category") || "Elements";
+            const title = el.getAttribute("data-title") || "Keep the focus in these elements.";
+            const desc = el.getAttribute("data-desc") || "";
+            const tagStr = el.getAttribute("data-tags") || "";
+            const tags = tagStr.split(",").map(s => s.trim()).filter(Boolean);
 
             hCategory.textContent = cat;
             hTitle.textContent = title.toUpperCase();
@@ -490,20 +489,20 @@
             hTags.innerHTML = `<span class="tag">Hover</span><span class="tag">Select</span><span class="tag">Explore</span>`;
         }
 
-        // Start with first project selected (optional)
-        if (projects.length > 0) {
-            locked = projects[0];
+        // Default locked selection = first card
+        if (cards.length > 0) {
+            locked = cards[0];
             setHeadlineFrom(locked);
         } else {
             resetHeadline();
         }
 
-        projects.forEach(card => {
-            // ALWAYS preview on hover
+        cards.forEach(card => {
+            // Hover always previews
             card.addEventListener("mouseenter", () => setHeadlineFrom(card));
             card.addEventListener("focus", () => setHeadlineFrom(card));
 
-            // Revert to locked when leaving
+            // When leaving, return to locked
             card.addEventListener("mouseleave", () => {
                 if (locked) setHeadlineFrom(locked);
                 else resetHeadline();
@@ -513,11 +512,10 @@
                 else resetHeadline();
             });
 
-            // Click locks the selection (optional prevent navigation)
+            // Click locks
             card.addEventListener("click", (e) => {
-                // If you want click to LOCK without navigating, uncomment:
+                // Uncomment if you want lock without navigating:
                 // e.preventDefault();
-
                 locked = card;
                 setHeadlineFrom(locked);
             });
