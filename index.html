@@ -37,7 +37,7 @@
         .wrap {
             max-width: var(--max);
             margin: 0 auto;
-            padding: 44px 18px 120px; /* leave room for dock */
+            padding: 44px 18px 120px; /* space for dock */
         }
 
         /* Studio title */
@@ -61,7 +61,7 @@
             font-size: 14px;
         }
 
-        /* Page headline (static) */
+        /* Static page headline */
         .headline {
             margin-top: 8px;
             margin-bottom: 22px;
@@ -86,7 +86,7 @@
             line-height: 1.08;
         }
 
-        /* Projects list (2 columns on desktop) */
+        /* Layout: 2 columns on desktop */
         .projects {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -100,14 +100,13 @@
             }
         }
 
-        /* Each project block = heading above + image below */
+        /* Per-project block: header ABOVE + image BELOW */
         .projectBlock {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        /* Heading above thumbnail */
         .projHeader {
             display: flex;
             align-items: flex-start;
@@ -163,7 +162,7 @@
             white-space: nowrap;
         }
 
-        /* Thumbnail (image only) */
+        /* Thumbnail: IMAGE ONLY */
         .thumbLink {
             display: block;
             border: 1px solid var(--line2);
@@ -326,7 +325,6 @@
             <h2 class="headlineBig">Keep the focus in these elements.</h2>
         </div>
 
-        <!-- PROJECTS -->
         <div class="projects">
 
             <!-- PROJECT 1 -->
