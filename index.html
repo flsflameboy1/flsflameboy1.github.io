@@ -10,9 +10,6 @@
         :root {
             --bg: #000000;
             --teal: #23f0d0;
-            /* UI neutrals */
-            --panel: rgba(35,240,208,0.06);
-            --panel2: rgba(255,255,255,0.03);
             --line: rgba(35,240,208,0.22);
             --line2: rgba(255,255,255,0.08);
             --max: 1100px;
@@ -37,17 +34,16 @@
             letter-spacing: 0.01em;
         }
 
-        /* Page layout */
         .wrap {
             max-width: var(--max);
             margin: 0 auto;
-            padding: 44px 18px 120px; /* leave room for bottom dock */
+            padding: 44px 18px 120px; /* leave room for dock */
         }
 
-        /* Top name / studio title */
+        /* Studio title */
         .studio {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
         }
 
         .studioTitle {
@@ -65,119 +61,50 @@
             font-size: 14px;
         }
 
-        /* “Keep the focus…” heading */
+        /* Headline area (this is where project title info lives) */
         .headline {
             margin-top: 8px;
             margin-bottom: 18px;
             text-align: left;
+            display: grid;
+            gap: 8px;
         }
 
         .headlineSmall {
             font-size: 14px;
             opacity: 0.9;
-            margin: 0 0 10px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
         }
 
         .headlineBig {
             margin: 0;
             font-size: clamp(24px, 3vw, 40px);
-            font-weight: 750;
+            font-weight: 800;
             letter-spacing: 0.01em;
-            max-width: 32ch;
+            max-width: 36ch;
+            text-transform: uppercase;
+            line-height: 1.08;
         }
 
-        /* Project cards grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0,1fr));
-            gap: 16px;
-            margin-top: 18px;
-        }
-
-        @media (max-width: 900px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-
-            .headline {
-                text-align: left;
-            }
-        }
-
-        /* Card = image tile only */
-        .card {
-            display: block;
-            border: 1px solid var(--line2);
-            border-radius: var(--radius);
-            overflow: hidden;
-            text-decoration: none;
-            color: var(--teal);
-            background: rgba(255,255,255,0.01);
-            transition: transform 120ms ease, border-color 120ms ease;
-            position: relative;
-        }
-
-            .card:hover {
-                transform: translateY(-2px);
-                border-color: var(--line);
-            }
-
-        /* Thumbnail area (the whole card) */
-        .thumb {
-            height: 420px; /* adjust */
-            position: relative;
-            background: radial-gradient(420px 260px at 30% 35%, rgba(35,240,208,0.12), transparent 60%), radial-gradient(420px 260px at 70% 65%, rgba(35,240,208,0.08), transparent 60%), rgba(255,255,255,0.02);
-        }
-
-        /* If you use real thumbnails */
-        .thumbImg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            filter: saturate(1) contrast(1);
-        }
-
-        /* Remove the old bottom content visually (kept in DOM for safety) */
-        .cardBody {
-            display: none !important;
-        }
-
-        /* Overlay header at TOP of image */
-        .overlay {
-            position: absolute;
-            left: 14px;
-            right: 14px;
-            top: 14px;
+        .headlineMetaRow {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: space-between;
-            gap: 12px;
-            pointer-events: none; /* card remains clickable */
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 2px;
         }
 
-        .overlayLeft {
-            max-width: 72%;
-        }
-
-        .overlayLabel {
-            margin: 0 0 6px;
-            font-size: 12px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            opacity: 0.9;
-        }
-
-        .overlayTitle {
+        .headlineDesc {
             margin: 0;
-            font-weight: 900;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            font-size: 26px;
-            line-height: 1.05;
+            font-size: 14px;
+            opacity: 0.88;
+            max-width: 70ch;
         }
 
-        .overlayTags {
+        .tagRow {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
@@ -194,6 +121,55 @@
             white-space: nowrap;
         }
 
+        /* Project thumbnails grid (pure images only) */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0,1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            display: block;
+            border: 1px solid var(--line2);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-decoration: none;
+            background: rgba(255,255,255,0.01);
+            transition: transform 120ms ease, border-color 120ms ease;
+            position: relative;
+            outline: none;
+        }
+
+            .card:hover {
+                transform: translateY(-2px);
+                border-color: var(--line);
+            }
+
+            .card:focus-visible {
+                border-color: var(--line);
+                box-shadow: 0 0 0 3px rgba(35,240,208,0.20);
+            }
+
+        /* PURE THUMB */
+        .thumb {
+            height: 420px; /* adjust */
+            background: radial-gradient(420px 260px at 30% 35%, rgba(35,240,208,0.12), transparent 60%), radial-gradient(420px 260px at 70% 65%, rgba(35,240,208,0.08), transparent 60%), rgba(255,255,255,0.02);
+        }
+
+        .thumbImg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         /* Bottom dock */
         .dockWrap {
             position: fixed;
@@ -204,7 +180,7 @@
             justify-content: center;
             padding: 0 16px;
             z-index: 20;
-            pointer-events: none; /* only dock itself clickable */
+            pointer-events: none;
         }
 
         .dock {
@@ -246,7 +222,7 @@
                 border-color: rgba(35,240,208,0.35);
             }
 
-        /* Modal for About/Contact (so they show “from the dock”) */
+        /* Modals */
         .modalOverlay {
             position: fixed;
             inset: 0;
@@ -317,160 +293,88 @@
 </head>
 
 <body>
-
     <div class="wrap">
-        <!-- Big “THE SAND STUDIO” style name -->
+
         <div class="studio">
             <h1 class="studioTitle">SAYYAM STUDIO</h1>
             <p class="studioSub">Technical Artist • Environment Artist • Houdini • Unreal</p>
         </div>
 
-        <!-- Heading like “Keep the focus in these elements.” -->
-        <div class="headline">
-            <p class="headlineSmall">Elements</p>
-            <h2 class="headlineBig">Keep the focus in these elements.</h2>
+        <!-- THIS is now your "title area" like the reference -->
+        <div class="headline" aria-live="polite">
+            <p class="headlineSmall" id="hCategory">Elements</p>
+            <h2 class="headlineBig" id="hTitle">Keep the focus in these elements.</h2>
+
+            <div class="headlineMetaRow">
+                <p class="headlineDesc" id="hDesc">Hover a thumbnail to preview the project title here.</p>
+
+                <div class="tagRow" id="hTags">
+                    <span class="tag">Hover</span>
+                    <span class="tag">Select</span>
+                    <span class="tag">Explore</span>
+                </div>
+            </div>
         </div>
 
-        <!-- Thumbnailed project cards (IMAGE ONLY, overlay header on top) -->
+        <!-- Thumbnails ONLY (no overlay text inside) -->
         <div class="grid">
 
-            <!-- CARD 1 -->
-            <a class="card" href="#" target="_blank" rel="noopener">
+            <a class="card project"
+               href="#"
+               target="_blank"
+               rel="noopener"
+               data-category="Environment"
+               data-title="Palace of Deceit"
+               data-desc="Procedural environment work in Houdini → Unreal. Materials, variation, and pipeline."
+               data-tags="Houdini,Unreal,Materials">
                 <div class="thumb">
-                    <!-- OPTIONAL REAL IMAGE:
-                    <img class="thumbImg" src="assets/thumbs/palace.jpg" alt="Palace of Deceit thumbnail">
-                    -->
-
-                    <div class="overlay">
-                        <div class="overlayLeft">
-                            <p class="overlayLabel">Environment</p>
-                            <h3 class="overlayTitle">Palace of Deceit</h3>
-                        </div>
-                        <div class="overlayTags">
-                            <span class="tag">Houdini</span>
-                            <span class="tag">Unreal</span>
-                            <span class="tag">Materials</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- old content retained but hidden (doesn't affect layout) -->
-                <div class="cardBody">
-                    <div class="cardMeta">
-                        <p class="cardLabel">Environment</p>
-                        <p class="cardTitle">Palace of Deceit</p>
-                        <p class="cardDesc">Procedural environment work in Houdini → Unreal. Materials, variation, and pipeline.</p>
-                    </div>
-                    <div class="pillRow">
-                        <span class="pill">Houdini</span>
-                        <span class="pill">Unreal</span>
-                        <span class="pill">Materials</span>
-                    </div>
+                    <!-- <img class="thumbImg" src="assets/thumbs/palace.jpg" alt="Palace of Deceit"> -->
                 </div>
             </a>
 
-            <!-- CARD 2 -->
-            <a class="card" href="#" target="_blank" rel="noopener">
+            <a class="card project"
+               href="#"
+               target="_blank"
+               rel="noopener"
+               data-category="Tools"
+               data-title="BabyLD Tools"
+               data-desc="Unreal Editor toolset (C++/Slate) for rapid level prototyping + procedural generation."
+               data-tags="Unreal,C++,Slate">
                 <div class="thumb">
-                    <!-- OPTIONAL REAL IMAGE:
-                    <img class="thumbImg" src="assets/thumbs/babyld.jpg" alt="BabyLD Tools thumbnail">
-                    -->
-
-                    <div class="overlay">
-                        <div class="overlayLeft">
-                            <p class="overlayLabel">Tools</p>
-                            <h3 class="overlayTitle">BabyLD Tools</h3>
-                        </div>
-                        <div class="overlayTags">
-                            <span class="tag">Unreal</span>
-                            <span class="tag">C++</span>
-                            <span class="tag">Slate</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cardBody">
-                    <div class="cardMeta">
-                        <p class="cardLabel">Tools</p>
-                        <p class="cardTitle">BabyLD Tools</p>
-                        <p class="cardDesc">Unreal Editor toolset (C++/Slate) for rapid level prototyping + procedural generation.</p>
-                    </div>
-                    <div class="pillRow">
-                        <span class="pill">Unreal</span>
-                        <span class="pill">C++</span>
-                        <span class="pill">Slate</span>
-                    </div>
+                    <!-- <img class="thumbImg" src="assets/thumbs/babyld.jpg" alt="BabyLD Tools"> -->
                 </div>
             </a>
 
-            <!-- CARD 3 -->
-            <a class="card" href="#" target="_blank" rel="noopener">
+            <a class="card project"
+               href="#"
+               target="_blank"
+               rel="noopener"
+               data-category="Game"
+               data-title="Paradox Hotel"
+               data-desc="2D detective puzzle prototype (game jam). Interaction systems, room logic, UI flow."
+               data-tags="Unity,2D,Systems">
                 <div class="thumb">
-                    <!-- OPTIONAL REAL IMAGE:
-                    <img class="thumbImg" src="assets/thumbs/paradox.jpg" alt="Paradox Hotel thumbnail">
-                    -->
-
-                    <div class="overlay">
-                        <div class="overlayLeft">
-                            <p class="overlayLabel">Game</p>
-                            <h3 class="overlayTitle">Paradox Hotel</h3>
-                        </div>
-                        <div class="overlayTags">
-                            <span class="tag">Unity</span>
-                            <span class="tag">2D</span>
-                            <span class="tag">Systems</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cardBody">
-                    <div class="cardMeta">
-                        <p class="cardLabel">Game</p>
-                        <p class="cardTitle">Paradox Hotel</p>
-                        <p class="cardDesc">2D detective puzzle prototype (game jam). Interaction systems, room logic, UI flow.</p>
-                    </div>
-                    <div class="pillRow">
-                        <span class="pill">Unity</span>
-                        <span class="pill">2D</span>
-                        <span class="pill">Systems</span>
-                    </div>
+                    <!-- <img class="thumbImg" src="assets/thumbs/paradox.jpg" alt="Paradox Hotel"> -->
                 </div>
             </a>
 
-            <!-- CARD 4 (optional extra) -->
-            <a class="card" href="#" target="_blank" rel="noopener">
+            <a class="card project"
+               href="#"
+               target="_blank"
+               rel="noopener"
+               data-category="3D Model"
+               data-title="Hero Prop"
+               data-desc="High-to-low workflow, baking, and presentation."
+               data-tags="3ds Max,Substance,Render">
                 <div class="thumb">
-                    <div class="overlay">
-                        <div class="overlayLeft">
-                            <p class="overlayLabel">3D Model</p>
-                            <h3 class="overlayTitle">Hero Prop</h3>
-                        </div>
-                        <div class="overlayTags">
-                            <span class="tag">3ds Max</span>
-                            <span class="tag">Substance</span>
-                            <span class="tag">Render</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cardBody">
-                    <div class="cardMeta">
-                        <p class="cardLabel">3D Model</p>
-                        <p class="cardTitle">Hero Prop</p>
-                        <p class="cardDesc">High-to-low workflow, baking, and presentation. Replace with your actual model piece.</p>
-                    </div>
-                    <div class="pillRow">
-                        <span class="pill">3ds Max</span>
-                        <span class="pill">Substance</span>
-                        <span class="pill">Render</span>
-                    </div>
+                    <!-- <img class="thumbImg" src="assets/thumbs/prop.jpg" alt="Hero Prop"> -->
                 </div>
             </a>
 
         </div>
     </div>
 
-    <!-- Bottom dock (like image 2) -->
+    <!-- Bottom dock -->
     <div class="dockWrap">
         <div class="dock">
             <button class="dockBtn" data-open="about">About</button>
@@ -518,7 +422,7 @@
     </div>
 
     <script>
-        // Open modal from dock buttons
+        // ---- Dock modal logic (unchanged behavior) ----
         document.querySelectorAll("[data-open]").forEach(btn => {
             btn.addEventListener("click", () => {
                 const id = btn.getAttribute("data-open");
@@ -527,25 +431,93 @@
             });
         });
 
-        // Close modal
         document.querySelectorAll("[data-close]").forEach(btn => {
             btn.addEventListener("click", () => {
                 btn.closest(".modalOverlay")?.classList.remove("show");
             });
         });
 
-        // Close modal by clicking outside
         document.querySelectorAll(".modalOverlay").forEach(overlay => {
             overlay.addEventListener("click", (e) => {
                 if (e.target === overlay) overlay.classList.remove("show");
             });
         });
 
-        // Escape to close
         window.addEventListener("keydown", (e) => {
             if (e.key === "Escape") {
                 document.querySelectorAll(".modalOverlay.show").forEach(m => m.classList.remove("show"));
             }
+        });
+
+        // ---- Headline updates (THIS is the key change) ----
+        const hCategory = document.getElementById("hCategory");
+        const hTitle = document.getElementById("hTitle");
+        const hDesc = document.getElementById("hDesc");
+        const hTags = document.getElementById("hTags");
+
+        const projects = Array.from(document.querySelectorAll(".project"));
+
+        let locked = null;
+
+        function setHeadlineFrom(el) {
+            const cat = el.dataset.category || "Elements";
+            const title = el.dataset.title || "Keep the focus in these elements.";
+            const desc = el.dataset.desc || "";
+            const tags = (el.dataset.tags || "").split(",").map(s => s.trim()).filter(Boolean);
+
+            hCategory.textContent = cat;
+            hTitle.textContent = title.toUpperCase();
+            hDesc.textContent = desc;
+
+            hTags.innerHTML = "";
+            if (tags.length === 0) {
+                hTags.innerHTML = `<span class="tag">Selected</span>`;
+            } else {
+                tags.forEach(t => {
+                    const span = document.createElement("span");
+                    span.className = "tag";
+                    span.textContent = t;
+                    hTags.appendChild(span);
+                });
+            }
+        }
+
+        function resetHeadline() {
+            hCategory.textContent = "Elements";
+            hTitle.textContent = "KEEP THE FOCUS IN THESE ELEMENTS.";
+            hDesc.textContent = "Hover a thumbnail to preview the project title here.";
+            hTags.innerHTML = `<span class="tag">Hover</span><span class="tag">Select</span><span class="tag">Explore</span>`;
+        }
+
+        // Default selection: first project (optional). If you want default empty, remove this.
+        if (projects[0]) {
+            locked = projects[0];
+            setHeadlineFrom(locked);
+        } else {
+            resetHeadline();
+        }
+
+        projects.forEach(card => {
+            card.addEventListener("mouseenter", () => {
+                if (!locked) setHeadlineFrom(card);
+                else setHeadlineFrom(card); // preview even when locked? remove if you don't want
+            });
+
+            card.addEventListener("focus", () => setHeadlineFrom(card));
+
+            card.addEventListener("mouseleave", () => {
+                if (locked) setHeadlineFrom(locked);
+                else resetHeadline();
+            });
+
+            // Click locks the headline to that project
+            card.addEventListener("click", (e) => {
+                // If you want click to LOCK without navigating, uncomment next line:
+                // e.preventDefault();
+
+                locked = card;
+                setHeadlineFrom(locked);
+            });
         });
     </script>
 </body>
