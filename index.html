@@ -37,9 +37,10 @@
         .wrap {
             max-width: var(--max);
             margin: 0 auto;
-            padding: 44px 18px 120px;
+            padding: 44px 18px 120px; /* leave room for dock */
         }
 
+        /* Studio title */
         .studio {
             text-align: center;
             margin-bottom: 28px;
@@ -60,19 +61,17 @@
             font-size: 14px;
         }
 
-        /* Headline area (ALL TITLES GO HERE) */
+        /* Page headline (static) */
         .headline {
             margin-top: 8px;
-            margin-bottom: 18px;
+            margin-bottom: 22px;
             text-align: left;
-            display: grid;
-            gap: 8px;
         }
 
         .headlineSmall {
             font-size: 14px;
             opacity: 0.9;
-            margin: 0;
+            margin: 0 0 10px;
             text-transform: uppercase;
             letter-spacing: 0.18em;
         }
@@ -82,22 +81,66 @@
             font-size: clamp(24px, 3vw, 40px);
             font-weight: 800;
             letter-spacing: 0.01em;
-            max-width: 36ch;
+            max-width: 38ch;
             text-transform: uppercase;
             line-height: 1.08;
         }
 
-        .headlineMetaRow {
+        /* Projects list (2 columns on desktop) */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+            margin-top: 18px;
+        }
+
+        @media (max-width: 900px) {
+            .projects {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Each project block = heading above + image below */
+        .projectBlock {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Heading above thumbnail */
+        .projHeader {
+            display: flex;
+            align-items: flex-start;
             justify-content: space-between;
             gap: 14px;
             flex-wrap: wrap;
-            margin-top: 2px;
+            padding: 2px 2px 0;
         }
 
-        .headlineDesc {
+        .projLeft {
+            min-width: 260px;
+            max-width: 70ch;
+        }
+
+        .projLabel {
+            margin: 0 0 6px;
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .projTitle {
             margin: 0;
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            line-height: 1.05;
+        }
+
+        .projDesc {
+            margin: 10px 0 0;
             font-size: 14px;
             opacity: 0.88;
             max-width: 70ch;
@@ -120,40 +163,20 @@
             white-space: nowrap;
         }
 
-        /* Thumbnails ONLY */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0,1fr));
-            gap: 16px;
-            margin-top: 18px;
-        }
-
-        @media (max-width: 900px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
+        /* Thumbnail (image only) */
+        .thumbLink {
             display: block;
             border: 1px solid var(--line2);
             border-radius: var(--radius);
             overflow: hidden;
-            text-decoration: none;
             background: rgba(255,255,255,0.01);
+            text-decoration: none;
             transition: transform 120ms ease, border-color 120ms ease;
-            outline: none;
-            cursor: pointer;
         }
 
-            .card:hover {
+            .thumbLink:hover {
                 transform: translateY(-2px);
                 border-color: var(--line);
-            }
-
-            .card:focus-visible {
-                border-color: var(--line);
-                box-shadow: 0 0 0 3px rgba(35,240,208,0.20);
             }
 
         .thumb {
@@ -298,76 +321,101 @@
             <p class="studioSub">Technical Artist • Environment Artist • Houdini • Unreal</p>
         </div>
 
-        <!-- TITLE AREA -->
-        <div class="headline" aria-live="polite">
-            <p class="headlineSmall" id="hCategory">Elements</p>
-            <h2 class="headlineBig" id="hTitle">Keep the focus in these elements.</h2>
-
-            <div class="headlineMetaRow">
-                <p class="headlineDesc" id="hDesc">Hover a thumbnail to preview the project title here.</p>
-
-                <div class="tagRow" id="hTags">
-                    <span class="tag">Hover</span>
-                    <span class="tag">Select</span>
-                    <span class="tag">Explore</span>
-                </div>
-            </div>
+        <div class="headline">
+            <p class="headlineSmall">Elements</p>
+            <h2 class="headlineBig">Keep the focus in these elements.</h2>
         </div>
 
-        <!-- THUMBNAILS ONLY -->
-        <div class="grid">
+        <!-- PROJECTS -->
+        <div class="projects">
 
-            <a id="proj1" class="card"
-               href="#"
-               target="_blank"
-               rel="noopener"
-               data-category="Environment"
-               data-title="Palace of Deceit"
-               data-desc="Procedural environment work in Houdini → Unreal. Materials, variation, and pipeline."
-               data-tags="Houdini,Unreal,Materials">
-                <div class="thumb">
-                    <!-- <img class="thumbImg" src="assets/thumbs/palace.jpg" alt="Palace of Deceit"> -->
+            <!-- PROJECT 1 -->
+            <div class="projectBlock">
+                <div class="projHeader">
+                    <div class="projLeft">
+                        <p class="projLabel">Environment</p>
+                        <h3 class="projTitle">Palace of Deceit</h3>
+                        <p class="projDesc">Procedural environment work in Houdini → Unreal. Materials, variation, and pipeline.</p>
+                    </div>
+                    <div class="tagRow">
+                        <span class="tag">Houdini</span>
+                        <span class="tag">Unreal</span>
+                        <span class="tag">Materials</span>
+                    </div>
                 </div>
-            </a>
 
-            <a id="proj2" class="card"
-               href="#"
-               target="_blank"
-               rel="noopener"
-               data-category="Tools"
-               data-title="BabyLD Tools"
-               data-desc="Unreal Editor toolset (C++/Slate) for rapid level prototyping + procedural generation."
-               data-tags="Unreal,C++,Slate">
-                <div class="thumb">
-                    <!-- <img class="thumbImg" src="assets/thumbs/babyld.jpg" alt="BabyLD Tools"> -->
-                </div>
-            </a>
+                <a class="thumbLink" href="#" target="_blank" rel="noopener">
+                    <div class="thumb">
+                        <!-- <img class="thumbImg" src="assets/thumbs/palace.jpg" alt="Palace of Deceit"> -->
+                    </div>
+                </a>
+            </div>
 
-            <a id="proj3" class="card"
-               href="#"
-               target="_blank"
-               rel="noopener"
-               data-category="Game"
-               data-title="Paradox Hotel"
-               data-desc="2D detective puzzle prototype (game jam). Interaction systems, room logic, UI flow."
-               data-tags="Unity,2D,Systems">
-                <div class="thumb">
-                    <!-- <img class="thumbImg" src="assets/thumbs/paradox.jpg" alt="Paradox Hotel"> -->
+            <!-- PROJECT 2 -->
+            <div class="projectBlock">
+                <div class="projHeader">
+                    <div class="projLeft">
+                        <p class="projLabel">Tools</p>
+                        <h3 class="projTitle">BabyLD Tools</h3>
+                        <p class="projDesc">Unreal Editor toolset (C++/Slate) for rapid level prototyping + procedural generation.</p>
+                    </div>
+                    <div class="tagRow">
+                        <span class="tag">Unreal</span>
+                        <span class="tag">C++</span>
+                        <span class="tag">Slate</span>
+                    </div>
                 </div>
-            </a>
 
-            <a id="proj4" class="card"
-               href="#"
-               target="_blank"
-               rel="noopener"
-               data-category="3D Model"
-               data-title="Hero Prop"
-               data-desc="High-to-low workflow, baking, and presentation."
-               data-tags="3ds Max,Substance,Render">
-                <div class="thumb">
-                    <!-- <img class="thumbImg" src="assets/thumbs/prop.jpg" alt="Hero Prop"> -->
+                <a class="thumbLink" href="#" target="_blank" rel="noopener">
+                    <div class="thumb">
+                        <!-- <img class="thumbImg" src="assets/thumbs/babyld.jpg" alt="BabyLD Tools"> -->
+                    </div>
+                </a>
+            </div>
+
+            <!-- PROJECT 3 -->
+            <div class="projectBlock">
+                <div class="projHeader">
+                    <div class="projLeft">
+                        <p class="projLabel">Game</p>
+                        <h3 class="projTitle">Paradox Hotel</h3>
+                        <p class="projDesc">2D detective puzzle prototype (game jam). Interaction systems, room logic, UI flow.</p>
+                    </div>
+                    <div class="tagRow">
+                        <span class="tag">Unity</span>
+                        <span class="tag">2D</span>
+                        <span class="tag">Systems</span>
+                    </div>
                 </div>
-            </a>
+
+                <a class="thumbLink" href="#" target="_blank" rel="noopener">
+                    <div class="thumb">
+                        <!-- <img class="thumbImg" src="assets/thumbs/paradox.jpg" alt="Paradox Hotel"> -->
+                    </div>
+                </a>
+            </div>
+
+            <!-- PROJECT 4 -->
+            <div class="projectBlock">
+                <div class="projHeader">
+                    <div class="projLeft">
+                        <p class="projLabel">3D Model</p>
+                        <h3 class="projTitle">Hero Prop</h3>
+                        <p class="projDesc">High-to-low workflow, baking, and presentation.</p>
+                    </div>
+                    <div class="tagRow">
+                        <span class="tag">3ds Max</span>
+                        <span class="tag">Substance</span>
+                        <span class="tag">Render</span>
+                    </div>
+                </div>
+
+                <a class="thumbLink" href="#" target="_blank" rel="noopener">
+                    <div class="thumb">
+                        <!-- <img class="thumbImg" src="assets/thumbs/prop.jpg" alt="Hero Prop"> -->
+                    </div>
+                </a>
+            </div>
 
         </div>
     </div>
@@ -420,7 +468,7 @@
     </div>
 
     <script>
-        // --- Dock modal logic ---
+        // Dock modal logic
         document.querySelectorAll("[data-open]").forEach(btn => {
             btn.addEventListener("click", () => {
                 const id = btn.getAttribute("data-open");
@@ -445,80 +493,6 @@
             if (e.key === "Escape") {
                 document.querySelectorAll(".modalOverlay.show").forEach(m => m.classList.remove("show"));
             }
-        });
-
-        // --- Headline update logic (WORKS FOR ALL CARDS) ---
-        const hCategory = document.getElementById("hCategory");
-        const hTitle = document.getElementById("hTitle");
-        const hDesc = document.getElementById("hDesc");
-        const hTags = document.getElementById("hTags");
-
-        // Select ALL elements that have data-title (so no class mistakes can break it)
-        const cards = Array.from(document.querySelectorAll("[data-title]"));
-
-        let locked = null;
-
-        function setHeadlineFrom(el) {
-            const cat = el.getAttribute("data-category") || "Elements";
-            const title = el.getAttribute("data-title") || "Keep the focus in these elements.";
-            const desc = el.getAttribute("data-desc") || "";
-            const tagStr = el.getAttribute("data-tags") || "";
-            const tags = tagStr.split(",").map(s => s.trim()).filter(Boolean);
-
-            hCategory.textContent = cat;
-            hTitle.textContent = title.toUpperCase();
-            hDesc.textContent = desc;
-
-            hTags.innerHTML = "";
-            if (tags.length === 0) {
-                hTags.innerHTML = `<span class="tag">Selected</span>`;
-            } else {
-                tags.forEach(t => {
-                    const span = document.createElement("span");
-                    span.className = "tag";
-                    span.textContent = t;
-                    hTags.appendChild(span);
-                });
-            }
-        }
-
-        function resetHeadline() {
-            hCategory.textContent = "Elements";
-            hTitle.textContent = "KEEP THE FOCUS IN THESE ELEMENTS.";
-            hDesc.textContent = "Hover a thumbnail to preview the project title here.";
-            hTags.innerHTML = `<span class="tag">Hover</span><span class="tag">Select</span><span class="tag">Explore</span>`;
-        }
-
-        // Default locked selection = first card
-        if (cards.length > 0) {
-            locked = cards[0];
-            setHeadlineFrom(locked);
-        } else {
-            resetHeadline();
-        }
-
-        cards.forEach(card => {
-            // Hover always previews
-            card.addEventListener("mouseenter", () => setHeadlineFrom(card));
-            card.addEventListener("focus", () => setHeadlineFrom(card));
-
-            // When leaving, return to locked
-            card.addEventListener("mouseleave", () => {
-                if (locked) setHeadlineFrom(locked);
-                else resetHeadline();
-            });
-            card.addEventListener("blur", () => {
-                if (locked) setHeadlineFrom(locked);
-                else resetHeadline();
-            });
-
-            // Click locks
-            card.addEventListener("click", (e) => {
-                // Uncomment if you want lock without navigating:
-                // e.preventDefault();
-                locked = card;
-                setHeadlineFrom(locked);
-            });
         });
     </script>
 </body>
