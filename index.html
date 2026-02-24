@@ -244,42 +244,47 @@
 
         /* ─── PFP ────────────────────────────────────────────── */
         .hero-pfp-wrap {
-            position: absolute;
-            top: 50%;
-            right: 40px;
-            transform: translateY(-50%);
+            position: relative;
             z-index: 2;
+            margin-bottom: 32px;
         }
 
         .hero-pfp {
-            width: 260px;
-            height: 260px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             object-position: center top;
             border: 2px solid var(--teal-dim);
-            box-shadow: 0 0 0 8px rgba(35,240,208,0.04), 0 0 60px rgba(35,240,208,0.12), 0 30px 80px rgba(0,0,0,0.6);
+            box-shadow: 0 0 0 8px rgba(35,240,208,0.04), 0 0 40px rgba(35,240,208,0.15), 0 20px 60px rgba(0,0,0,0.6);
             display: block;
             filter: saturate(1.1);
         }
 
-        /* teal glow ring animation */
         .hero-pfp-wrap::before {
             content: '';
             position: absolute;
-            inset: -10px;
+            top: -10px;
+            left: -10px;
+            width: calc(120px + 20px);
+            height: calc(120px + 20px);
             border-radius: 50%;
             border: 1px solid var(--teal-dim);
             animation: glowPulse 3s ease-in-out infinite;
+            pointer-events: none;
         }
 
         .hero-pfp-wrap::after {
             content: '';
             position: absolute;
-            inset: -22px;
+            top: -22px;
+            left: -22px;
+            width: calc(120px + 44px);
+            height: calc(120px + 44px);
             border-radius: 50%;
             border: 1px solid rgba(35,240,208,0.06);
             animation: glowPulse 3s ease-in-out infinite 0.8s;
+            pointer-events: none;
         }
 
         @keyframes glowPulse {
@@ -291,21 +296,6 @@
             50% {
                 opacity: 1;
                 transform: scale(1.02);
-            }
-        }
-
-        @media (max-width: 860px) {
-            .hero-pfp-wrap {
-                position: relative;
-                top: auto;
-                right: auto;
-                transform: none;
-                margin-bottom: 28px;
-            }
-
-            .hero-pfp {
-                width: 110px;
-                height: 110px;
             }
         }
 
@@ -471,42 +461,62 @@
             transform: rotate(45deg);
         }
 
-        /* images side */
+        /* ── Image panel ── */
         .proj-images {
             border-left: 1px solid var(--line);
-            padding: 18px;
-            display: grid;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
             gap: 10px;
-            align-content: start;
+            min-height: 340px;
         }
 
-            /* layout variants */
-            .proj-images[data-count="1"] {
-                grid-template-columns: 1fr;
-            }
-
-            .proj-images[data-count="2"] {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .proj-images[data-count="3"] {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .proj-images[data-count="4"] {
-                grid-template-columns: 1fr 1fr;
-            }
+        /* rows inside the panel */
+        .thumb-row {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+        }
 
         .thumb {
+            flex: 1;
             border-radius: 4px;
             overflow: hidden;
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--line);
+            min-height: 0;
         }
-        /* first image always spans full width for 3+ images */
-        .proj-images[data-count="3"] .thumb:first-child,
-        .proj-images[data-count="4"] .thumb:first-child {
-            grid-column: 1 / -1;
+
+        /* count=1: single row, single thumb fills everything */
+        .proj-images[data-count="1"] .thumb-row {
+            flex: 1;
+        }
+
+        /* count=2: top row big (2/3), bottom row small (1/3) */
+        .proj-images[data-count="2"] .thumb-row:first-child {
+            flex: 2;
+        }
+
+        .proj-images[data-count="2"] .thumb-row:last-child {
+            flex: 1;
+        }
+
+        /* count=3: top row big (2/3), bottom row two smalls (1/3) */
+        .proj-images[data-count="3"] .thumb-row:first-child {
+            flex: 2;
+        }
+
+        .proj-images[data-count="3"] .thumb-row:last-child {
+            flex: 1;
+        }
+
+        /* count=4: top row big (1/2), bottom row three smalls (1/2) */
+        .proj-images[data-count="4"] .thumb-row:first-child {
+            flex: 1;
+        }
+
+        .proj-images[data-count="4"] .thumb-row:last-child {
+            flex: 1;
         }
 
         .thumb img {
@@ -514,36 +524,11 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.4s ease;
+            transition: transform 0.5s ease;
         }
 
         .project-row:hover .thumb img {
-            transform: scale(1.03);
-        }
-
-        /* fixed heights */
-        .proj-images[data-count="1"] .thumb {
-            height: 320px;
-        }
-
-        .proj-images[data-count="2"] .thumb {
-            height: 150px;
-        }
-
-        .proj-images[data-count="3"] .thumb:first-child {
-            height: 180px;
-        }
-
-        .proj-images[data-count="3"] .thumb:not(:first-child) {
-            height: 110px;
-        }
-
-        .proj-images[data-count="4"] .thumb:first-child {
-            height: 160px;
-        }
-
-        .proj-images[data-count="4"] .thumb:not(:first-child) {
-            height: 100px;
+            transform: scale(1.04);
         }
 
         /* ─── About strip ────────────────────────────────────── */
@@ -815,6 +800,12 @@
                 border-left: none;
                 border-top: 1px solid var(--line);
                 padding: 16px 0;
+                min-height: 180px;
+                flex-direction: row;
+            }
+            /* on mobile all rows become columns side by side */
+            .thumb-row {
+                flex-direction: column;
             }
 
             .proj-arrow {
@@ -1016,7 +1007,7 @@
         <div>
             <p class="footer-name">Sayyam<span>.</span></p>
             <p style="font-size:13px; color:var(--muted); margin-top:6px;">
-                <a href="mailto:Rockinghamsters@gmail.com" style="color:var(--teal); text-underline-offset:3px;">Rockinghamsters@gmail.com</a>
+                <a href="/cdn-cgi/l/email-protection#89dbe6eae2e0e7eee1e8e4fafdecfbfac9eee4e8e0e5a7eae6e4" style="color:var(--teal); text-underline-offset:3px;"><span class="__cf_email__" data-cfemail="e4b68b878f8d8a838c85899790819697a48389858d88ca878b89">[email&#160;protected]</span></a>
             </p>
         </div>
         <div class="footer-links">
@@ -1036,7 +1027,7 @@
             <div class="modal-body">
                 <p>Technical Artist &amp; Game Developer currently completing MSc in Technical Arts &amp; Visual Effects at Abertay University, Dundee. Previously at Polyphonic Technologies — delivering 3D levels, shaders, blueprints, and C++ for Unreal and Unity projects.</p>
                 <p style="margin-top:14px;">
-                    Email: <a href="mailto:Rockinghamsters@gmail.com">Rockinghamsters@gmail.com</a><br>
+                    Email: <a href="/cdn-cgi/l/email-protection#c89aa7aba3a1a6afa0a9a5bbbcadbabb88afa5a9a1a4e6aba7a5"><span class="__cf_email__" data-cfemail="2f7d404c44464148474e425c5b4a5d5c6f48424e4643014c4042">[email&#160;protected]</span></a><br>
                     LinkedIn: <a href="https://linkedin.com/in/sayyam-gaur-1640b3204" target="_blank">linkedin.com/in/sayyam-gaur</a><br>
                     ArtStation: <a href="https://www.artstation.com/sayyambharadwaj6" target="_blank">artstation.com/sayyambharadwaj6</a><br>
                     UK: <a href="tel:+447818333173">+44 7818 333173</a>
@@ -1047,12 +1038,27 @@
     </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         /* ── Cursor ── */
         const cur = document.getElementById('cursor');
         const ring = document.getElementById('cursorRing');
-        let mx = 0, my = 0, rx = 0, ry = 0;
-        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        let mx = -200, my = -200, rx = -200, ry = -200;
+        let cursorVisible = false;
+
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            if (!cursorVisible) {
+                cursorVisible = true;
+                cur.style.opacity = '1';
+                ring.style.opacity = '0.5';
+            }
+        });
+
+        // hide until mouse moves
+        cur.style.opacity = '0';
+        ring.style.opacity = '0';
+
         function animCursor() {
             cur.style.left = mx + 'px'; cur.style.top = my + 'px';
             rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
@@ -1070,36 +1076,66 @@
         /* ── Dynamic image grid ── */
         function buildGrids() {
             document.querySelectorAll('.proj-images').forEach(grid => {
-                const thumbs = Array.from(grid.querySelectorAll('.thumb')).filter(t => {
-                    const img = t.querySelector('img');
-                    return img && img.complete && img.naturalWidth > 0;
-                });
-                const count = Math.min(Math.max(thumbs.length, 1), 4);
-                grid.setAttribute('data-count', count);
-                // hide unused thumbs
-                Array.from(grid.querySelectorAll('.thumb')).forEach((t, i) => {
-                    t.style.display = i < count ? '' : 'none';
-                });
+
+                // Collect all img srcs from original thumbs
+                const allImgs = Array.from(grid.querySelectorAll('img'));
+                // Filter to only images that actually loaded
+                const loaded = allImgs.filter(img => img.complete && img.naturalWidth > 0);
+
+                if (loaded.length === 0) return; // wait for load event
+
+                const count = Math.min(loaded.length, 4);
+                grid.setAttribute('data-count', String(count));
+
+                // Clear and rebuild
+                grid.innerHTML = '';
+
+                function makeThumb(img) {
+                    const t = document.createElement('div');
+                    t.className = 'thumb';
+                    t.appendChild(img);
+                    return t;
+                }
+
+                function makeRow(...imgs) {
+                    const row = document.createElement('div');
+                    row.className = 'thumb-row';
+                    imgs.forEach(img => row.appendChild(makeThumb(img)));
+                    return row;
+                }
+
+                if (count === 1) {
+                    // Single image fills the whole panel
+                    grid.appendChild(makeRow(loaded[0]));
+
+                } else if (count === 2) {
+                    // Large on top, small on bottom
+                    grid.appendChild(makeRow(loaded[0]));
+                    grid.appendChild(makeRow(loaded[1]));
+
+                } else if (count === 3) {
+                    // Large on top, two smalls side by side below
+                    grid.appendChild(makeRow(loaded[0]));
+                    grid.appendChild(makeRow(loaded[1], loaded[2]));
+
+                } else if (count >= 4) {
+                    // Large on top, three smalls side by side below
+                    grid.appendChild(makeRow(loaded[0]));
+                    grid.appendChild(makeRow(loaded[1], loaded[2], loaded[3]));
+                }
             });
         }
+
+        // Run on load (images should be ready)
         window.addEventListener('load', buildGrids);
+
+        // Also remove broken images and rebuild
         document.querySelectorAll('.proj-images img').forEach(img => {
             img.addEventListener('error', () => {
-                img.closest('.thumb')?.remove();
+                img.remove();
                 buildGrids();
             });
         });
 
         /* ── Project row click ── */
-        document.querySelectorAll('.project-row').forEach(row => {
-            row.addEventListener('click', () => {
-                const href = row.getAttribute('data-href');
-                if (href && href !== '#') window.open(href, '_blank');
-            });
-            row.style.cursor = 'none';
-        });
-
-        /* ── Modal ── */
-        const overlay = document.getElementById('aboutOverlay');
-        document.getElementById('openAbout').addEventListener('click', e => {
-            e.preventDefault(
+        document.querySelectorAll('.project-row').forEach(row =>
