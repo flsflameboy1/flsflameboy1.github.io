@@ -8,11 +8,9 @@
 
     <style>
         :root {
-            /* Minimal light editorial look (change to dark if you want) */
-            --bg: #fbfbf8;
-            --text: #141414;
-            --muted: #5f5f5f;
-            --line: rgba(20,20,20,0.12);
+            --bg: #000000;
+            --teal: #23f0d0;
+            --line: rgba(35,240,208,0.22);
             --max: 820px;
         }
 
@@ -28,7 +26,7 @@
 
         body {
             background: var(--bg);
-            color: var(--text);
+            color: var(--teal); /* ALL text teal */
             font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
             line-height: 1.55;
             letter-spacing: 0.01em;
@@ -38,7 +36,7 @@
         .stage {
             min-height: 100vh;
             display: grid;
-            place-items: center; /* both horizontal + vertical centering */
+            place-items: center; /* horizontal + vertical centering */
             padding: 24px;
         }
 
@@ -51,21 +49,23 @@
             margin: 0;
             font-size: 28px;
             font-weight: 650;
+            color: var(--teal);
         }
 
         .tagline {
             margin: 12px auto 0;
-            color: var(--muted);
             font-size: 16px;
             max-width: 70ch;
+            color: var(--teal);
+            opacity: 0.95;
         }
 
-        /* Minimal dropdown style using <details> */
+        /* Dropdown stack */
         .stack {
             margin-top: 28px;
             display: grid;
             gap: 10px;
-            text-align: left; /* dropdown content is easier to read left-aligned */
+            text-align: left; /* keep readable */
         }
 
         details {
@@ -85,6 +85,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 12px;
+            color: var(--teal);
         }
 
             summary::-webkit-details-marker {
@@ -92,8 +93,10 @@
             }
 
         .caret {
-            color: var(--muted);
+            color: var(--teal);
+            opacity: 0.85;
             font-weight: 700;
+            transition: transform 120ms ease;
         }
 
         details[open] .caret {
@@ -102,16 +105,22 @@
 
         .panel {
             padding: 0 14px 14px;
-            color: var(--muted);
             font-size: 14px;
             border-top: 1px solid var(--line);
+            color: var(--teal);
+            opacity: 0.92;
         }
 
+        /* Links teal (no underlines unless hover) */
         a {
-            color: var(--text);
-            text-decoration: underline;
-            text-underline-offset: 3px;
+            color: var(--teal);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(35,240,208,0.35);
         }
+
+            a:hover {
+                border-bottom-color: var(--teal);
+            }
 
         .links {
             display: flex;
@@ -120,22 +129,16 @@
             flex-wrap: wrap;
             margin-top: 18px;
             font-size: 14px;
-            color: var(--muted);
+            color: var(--teal);
+            opacity: 0.9;
         }
-
-            .links a {
-                color: var(--muted);
-            }
-
-                .links a:hover {
-                    color: var(--text);
-                }
 
         footer {
             margin-top: 26px;
-            color: var(--muted);
             font-size: 13px;
             text-align: center;
+            color: var(--teal);
+            opacity: 0.85;
         }
 
         @media (max-width: 520px) {
@@ -153,13 +156,11 @@
 <body>
     <div class="stage">
         <main class="center">
-            <!-- Name + Tagline centered -->
             <h1>Sayyam</h1>
             <p class="tagline">
                 Technical Artist / Environment Artist — procedural workflows, tools, and real-time pipelines.
             </p>
 
-            <!-- Optional: small centered links row -->
             <div class="links">
                 <a href="assets/resume/Sayyam_Gaur_Resume.pdf" target="_blank" rel="noopener">Resume</a>
                 <a href="mailto:Rockinghamsters@gmail.com">Email</a>
@@ -167,7 +168,6 @@
                 <a href="#" target="_blank" rel="noopener">ArtStation</a>
             </div>
 
-            <!-- Dropdown sections centered as a block -->
             <section class="stack" aria-label="Sections">
                 <details open>
                     <summary>
