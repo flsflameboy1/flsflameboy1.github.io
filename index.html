@@ -39,41 +39,6 @@
             font-weight: 300;
             line-height: 1.5;
             overflow-x: hidden;
-            cursor: none;
-        }
-
-        /* ─── Custom cursor ──────────────────────────────────── */
-        .cursor {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: var(--teal);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
-            mix-blend-mode: difference;
-        }
-
-        .cursor-ring {
-            position: fixed;
-            width: 36px;
-            height: 36px;
-            border: 1px solid var(--teal);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transform: translate(-50%, -50%);
-            transition: transform 0.18s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s;
-            opacity: 0.5;
-        }
-
-        body:has(a:hover) .cursor-ring,
-        body:has(button:hover) .cursor-ring {
-            width: 56px;
-            height: 56px;
-            opacity: 0.8;
         }
 
         /* ─── Header ─────────────────────────────────────────── */
@@ -719,7 +684,7 @@
             width: 36px;
             height: 36px;
             font-size: 16px;
-            cursor: none;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -826,10 +791,6 @@
 </head>
 
 <body>
-    <!-- cursor -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-ring" id="cursorRing"></div>
-
     <!-- ─── Header ─── -->
     <header id="header">
         <a href="#" class="logo">SG<span>.</span></a>
@@ -1040,33 +1001,6 @@
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
-        /* ── Cursor ── */
-        const cur = document.getElementById('cursor');
-        const ring = document.getElementById('cursorRing');
-        let mx = -200, my = -200, rx = -200, ry = -200;
-        let cursorVisible = false;
-
-        document.addEventListener('mousemove', e => {
-            mx = e.clientX; my = e.clientY;
-            if (!cursorVisible) {
-                cursorVisible = true;
-                cur.style.opacity = '1';
-                ring.style.opacity = '0.5';
-            }
-        });
-
-        // hide until mouse moves
-        cur.style.opacity = '0';
-        ring.style.opacity = '0';
-
-        function animCursor() {
-            cur.style.left = mx + 'px'; cur.style.top = my + 'px';
-            rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-            ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-            requestAnimationFrame(animCursor);
-        }
-        animCursor();
-
         /* ── Header on scroll ── */
         const hdr = document.getElementById('header');
         window.addEventListener('scroll', () => {
@@ -1076,18 +1010,21 @@
         /* ── Dynamic image grid ── */
         function buildGrids() {
             document.querySelectorAll('.proj-images').forEach(grid => {
-
-                // Collect all img srcs from original thumbs
+                // Get all imgs still in the grid (broken ones already removed)
                 const allImgs = Array.from(grid.querySelectorAll('img'));
-                // Filter to only images that actually loaded
                 const loaded = allImgs.filter(img => img.complete && img.naturalWidth > 0);
 
-                if (loaded.length === 0) return; // wait for load event
+                if (loaded.length === 0) {
+                    grid.style.display = 'none'; // no images at all, hide the panel
+                    return;
+                }
 
+                grid.style.display = '';
                 const count = Math.min(loaded.length, 4);
                 grid.setAttribute('data-count', String(count));
 
-                // Clear and rebuild
+                // Detach imgs from DOM before clearing
+                loaded.forEach(img => img.remove());
                 grid.innerHTML = '';
 
                 function makeThumb(img) {
@@ -1105,37 +1042,31 @@
                 }
 
                 if (count === 1) {
-                    // Single image fills the whole panel
                     grid.appendChild(makeRow(loaded[0]));
-
                 } else if (count === 2) {
-                    // Large on top, small on bottom
                     grid.appendChild(makeRow(loaded[0]));
                     grid.appendChild(makeRow(loaded[1]));
-
                 } else if (count === 3) {
-                    // Large on top, two smalls side by side below
                     grid.appendChild(makeRow(loaded[0]));
                     grid.appendChild(makeRow(loaded[1], loaded[2]));
-
-                } else if (count >= 4) {
-                    // Large on top, three smalls side by side below
+                } else {
                     grid.appendChild(makeRow(loaded[0]));
                     grid.appendChild(makeRow(loaded[1], loaded[2], loaded[3]));
                 }
             });
         }
 
-        // Run on load (images should be ready)
-        window.addEventListener('load', buildGrids);
-
-        // Also remove broken images and rebuild
+        // Immediately remove any broken image and rebuild its grid
         document.querySelectorAll('.proj-images img').forEach(img => {
-            img.addEventListener('error', () => {
-                img.remove();
-                buildGrids();
-            });
+            if (img.complete && img.naturalWidth === 0) {
+                img.remove(); // already broken on parse
+            } else {
+                img.addEventListener('error', () => { img.remove(); buildGrids(); });
+            }
         });
+
+        // Build after all valid images have loaded
+        window.addEventListener('load', buildGrids);
 
         /* ── Project row click ── */
         document.querySelectorAll('.project-row').forEach(row =>
