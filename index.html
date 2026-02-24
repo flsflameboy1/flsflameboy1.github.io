@@ -8,16 +8,16 @@
 
     <style>
         :root {
-            --bg: #07080b;
-            --panel: #0d1018;
-            --panel2: #0a0c12;
-            --line: #1c2230;
+            --bg: #0b0c10;
+            --panel: #12141b;
+            --panel2: #0f1117;
+            --line: #232635;
             --text: #e9ecf7;
             --muted: #a7afc7;
-            /* Game neon accent */
-            --accent: #23f0d0; /* teal neon */
-            --accent2: #2b66ff; /* blue neon */
-            --warn: #ffcc66;
+            /* Pastel versions of your teal/blue */
+            --accent: #9fe9dd; /* pastel teal */
+            --accent2: #a9c7ff; /* pastel blue */
+            --warn: #ffe3a3; /* pastel warm */
         }
 
         * {
@@ -32,7 +32,7 @@
         body {
             font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
             color: var(--text);
-            background: radial-gradient(900px 600px at 15% 0%, rgba(35,240,208,0.13), transparent 55%), radial-gradient(900px 600px at 85% 10%, rgba(43,102,255,0.12), transparent 55%), var(--bg);
+            background: var(--bg);
             overflow-x: hidden;
         }
 
