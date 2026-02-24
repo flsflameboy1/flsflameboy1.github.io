@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sayyam — Portfolio</title>
-    <meta name="description" content="Sayyam — Technical Artist / Environment Artist portfolio." />
+    <title>SAYYAM STUDIO</title>
+    <meta name="description" content="Sayyam Studio — Portfolio" />
 
     <style>
         :root {
-            --bg: #000000;
+            --bg: #000;
             --teal: #23f0d0;
             --line: rgba(35,240,208,0.22);
-            --max: 820px;
+            --max: 860px;
         }
 
         * {
@@ -26,17 +26,16 @@
 
         body {
             background: var(--bg);
-            color: var(--teal); /* ALL text teal */
+            color: var(--teal);
             font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
             line-height: 1.55;
             letter-spacing: 0.01em;
         }
 
-        /* Center everything in the exact middle of the screen */
         .stage {
             min-height: 100vh;
             display: grid;
-            place-items: center; /* horizontal + vertical centering */
+            place-items: center;
             padding: 24px;
         }
 
@@ -45,27 +44,58 @@
             text-align: center;
         }
 
-        h1 {
-            margin: 0;
-            font-size: 28px;
-            font-weight: 650;
-            color: var(--teal);
+        /* Top small line like "Honorable Mention — Jun 12, 2024" */
+        .kicker {
+            font-size: 13px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            opacity: 0.85;
+            margin: 0 0 14px;
         }
 
-        .tagline {
-            margin: 12px auto 0;
-            font-size: 16px;
-            max-width: 70ch;
-            color: var(--teal);
-            opacity: 0.95;
+        /* Big “THE SAND STUDIO” style title */
+        .title {
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-size: clamp(38px, 6vw, 72px);
+            line-height: 1.05;
         }
+
+        /* Under-title “by …” line */
+        .byline {
+            margin: 12px 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        a {
+            color: var(--teal);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(35,240,208,0.35);
+        }
+
+            a:hover {
+                border-bottom-color: var(--teal);
+            }
 
         /* Dropdown stack */
         .stack {
-            margin-top: 28px;
+            margin-top: 30px;
             display: grid;
             gap: 10px;
-            text-align: left; /* keep readable */
+            text-align: left;
         }
 
         details {
@@ -80,7 +110,7 @@
             cursor: pointer;
             padding: 12px 14px;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 650;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -93,9 +123,8 @@
             }
 
         .caret {
-            color: var(--teal);
             opacity: 0.85;
-            font-weight: 700;
+            font-weight: 800;
             transition: transform 120ms ease;
         }
 
@@ -107,48 +136,14 @@
             padding: 0 14px 14px;
             font-size: 14px;
             border-top: 1px solid var(--line);
-            color: var(--teal);
             opacity: 0.92;
-        }
-
-        /* Links teal (no underlines unless hover) */
-        a {
-            color: var(--teal);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(35,240,208,0.35);
-        }
-
-            a:hover {
-                border-bottom-color: var(--teal);
-            }
-
-        .links {
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            flex-wrap: wrap;
-            margin-top: 18px;
-            font-size: 14px;
-            color: var(--teal);
-            opacity: 0.9;
         }
 
         footer {
             margin-top: 26px;
             font-size: 13px;
             text-align: center;
-            color: var(--teal);
-            opacity: 0.85;
-        }
-
-        @media (max-width: 520px) {
-            h1 {
-                font-size: 24px;
-            }
-
-            .tagline {
-                font-size: 15px;
-            }
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -156,11 +151,19 @@
 <body>
     <div class="stage">
         <main class="center">
-            <h1>Sayyam</h1>
-            <p class="tagline">
-                Technical Artist / Environment Artist — procedural workflows, tools, and real-time pipelines.
+
+            <!-- optional kicker line -->
+            <p class="kicker">Portfolio — Technical Artist / Environment Artist</p>
+
+            <!-- BIG NAME like “THE SAND STUDIO” -->
+            <h1 class="title">SAYYAM STUDIO</h1>
+
+            <!-- small byline under it -->
+            <p class="byline">
+                by <strong>Sayyam</strong> · Procedural workflows · Tools · Environments · Games
             </p>
 
+            <!-- links row -->
             <div class="links">
                 <a href="assets/resume/Sayyam_Gaur_Resume.pdf" target="_blank" rel="noopener">Resume</a>
                 <a href="mailto:Rockinghamsters@gmail.com">Email</a>
@@ -168,12 +171,10 @@
                 <a href="#" target="_blank" rel="noopener">ArtStation</a>
             </div>
 
+            <!-- dropdowns -->
             <section class="stack" aria-label="Sections">
                 <details open>
-                    <summary>
-                        Projects
-                        <span class="caret">▾</span>
-                    </summary>
+                    <summary>Projects <span class="caret">▾</span></summary>
                     <div class="panel">
                         <p style="margin:10px 0 10px;">
                             <strong>Palace of Deceit (Kaurava Palace)</strong><br />
@@ -191,20 +192,14 @@
                 </details>
 
                 <details>
-                    <summary>
-                        About
-                        <span class="caret">▾</span>
-                    </summary>
+                    <summary>About <span class="caret">▾</span></summary>
                     <div class="panel">
                         Write 4–6 lines here. Keep it concrete: Houdini/Unreal pipelines, tools, materials, environments, and what roles you want.
                     </div>
                 </details>
 
                 <details>
-                    <summary>
-                        Contact
-                        <span class="caret">▾</span>
-                    </summary>
+                    <summary>Contact <span class="caret">▾</span></summary>
                     <div class="panel">
                         Email: <a href="mailto:Rockinghamsters@gmail.com">Rockinghamsters@gmail.com</a><br />
                         LinkedIn: <a href="#" target="_blank" rel="noopener">Add link</a><br />
@@ -216,6 +211,7 @@
             <footer>
                 © <span id="y"></span> Sayyam
             </footer>
+
         </main>
     </div>
 
