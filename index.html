@@ -542,87 +542,73 @@
     </div>
 
     <script>
-        // ----- Make thumbGrid dynamic based on number of <img> inside -----
-        <script>
-            function buildDynamicThumbGrids() {
-                document.querySelectorAll(".thumbGrid").forEach(grid => {
-                    // Grab images and remove ones that failed to load (404 etc.)
-                    let imgs = Array.from(grid.querySelectorAll("img")).filter(img => {
-                        // keep images that loaded successfully
-                        return img.complete && img.naturalWidth > 0;
-                    });
+        function buildDynamicThumbGrids() {
+            document.querySelectorAll(".thumbGrid").forEach(grid => {
+                const imgs = Array.from(grid.querySelectorAll("img")).filter(img => {
+                    return img.complete && img.naturalWidth > 0;
+                });
 
-                    // If images aren't loaded yet, wait for window load (below)
-                    if (imgs.length === 0) return;
+                if (imgs.length === 0) return;
 
-                    const count = Math.min(Math.max(imgs.length, 1), 4);
-                    grid.setAttribute("data-count", String(count));
+                const count = Math.min(Math.max(imgs.length, 1), 4);
+                grid.setAttribute("data-count", String(count));
 
-                    // Clear and rebuild DOM
-                    grid.innerHTML = "";
+                grid.innerHTML = "";
 
-                    // Main image
-                    const main = document.createElement("div");
-                    main.className = "mainThumb";
-                    main.appendChild(imgs[0]);
-                    grid.appendChild(main);
+                const main = document.createElement("div");
+                main.className = "mainThumb";
+                main.appendChild(imgs[0]);
+                grid.appendChild(main);
 
-                    // Side images
-                    if (count > 1) {
-                        const sideStack = document.createElement("div");
-                        sideStack.className = "sideStack";
-                        for (let i = 1; i < count; i++) {
-                            const side = document.createElement("div");
-                            side.className = "sideThumb";
-                            side.appendChild(imgs[i]);
-                            sideStack.appendChild(side);
-                        }
-                        grid.appendChild(sideStack);
+                if (count > 1) {
+                    const sideStack = document.createElement("div");
+                    sideStack.className = "sideStack";
+                    for (let i = 1; i < count; i++) {
+                        const side = document.createElement("div");
+                        side.className = "sideThumb";
+                        side.appendChild(imgs[i]);
+                        sideStack.appendChild(side);
                     }
-                });
-      }
-
-            // Rebuild after all images are loaded
-            window.addEventListener("load", buildDynamicThumbGrids);
-
-      // ALSO remove broken images immediately and rebuild
-      document.querySelectorAll(".thumbGrid img").forEach(img => {
-                img.addEventListener("error", () => {
-                    img.remove();
-                    buildDynamicThumbGrids();
-                });
-      });
-
-      // ---- your modal code below (keep as-is) ----
-      document.querySelectorAll("[data-open]").forEach(btn => {
-                btn.addEventListener("click", () => {
-                    const id = btn.getAttribute("data-open");
-                    const modal = document.getElementById(id + "Modal");
-                    if (modal) modal.classList.add("show");
-                });
-      });
-
-      document.querySelectorAll("[data-close]").forEach(btn => {
-                btn.addEventListener("click", () => {
-                    btn.closest(".modalOverlay")?.classList.remove("show");
-                });
-      });
-
-      document.querySelectorAll(".modalOverlay").forEach(overlay => {
-                overlay.addEventListener("click", (e) => {
-                    if (e.target === overlay) overlay.classList.remove("show");
-                });
-      });
-
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-                document.querySelectorAll(".modalOverlay.show").forEach(m => m.classList.remove("show"));
+                    grid.appendChild(sideStack);
+                }
+            });
         }
-      });
-    </script>
 
-        // Build dynamic grids after page loads
-        buildDynamicThumbGrids();
+        // Run after all images have loaded
+        window.addEventListener("load", buildDynamicThumbGrids);
+
+        // Also handle broken images — remove them and rebuild
+        document.querySelectorAll(".thumbGrid img").forEach(img => {
+            img.addEventListener("error", () => {
+                img.remove();
+                buildDynamicThumbGrids();
+            });
+        });
+
+        // Modal open/close
+        document.querySelectorAll("[data-open]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const modal = document.getElementById(btn.getAttribute("data-open") + "Modal");
+                if (modal) modal.classList.add("show");
+            });
+        });
+
+        document.querySelectorAll("[data-close]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                btn.closest(".modalOverlay")?.classList.remove("show");
+            });
+        });
+
+        document.querySelectorAll(".modalOverlay").forEach(overlay => {
+            overlay.addEventListener("click", e => {
+                if (e.target === overlay) overlay.classList.remove("show");
+            });
+        });
+
+        window.addEventListener("keydown", e => {
+            if (e.key === "Escape")
+                document.querySelectorAll(".modalOverlay.show").forEach(m => m.classList.remove("show"));
+        });
     </script>
 </body>
 </html>
