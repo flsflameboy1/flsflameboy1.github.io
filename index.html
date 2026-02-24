@@ -86,15 +86,13 @@
             line-height: 1.08;
         }
 
-        /* Layout: 1 columns on desktop */
+        /* Layout: 1 column list view */
         .projects {
             display: grid;
-            grid-template-columns: 1fr; /* LIST view */
-            gap: 34px; /* space between projects */
+            grid-template-columns: 1fr;
+            gap: 34px;
             margin-top: 18px;
         }
-
-        
 
         /* Per-project block: header ABOVE + image BELOW */
         .projectBlock {
@@ -158,7 +156,7 @@
             white-space: nowrap;
         }
 
-        /* Thumbnail: IMAGE ONLY */
+        /* Thumbnail wrapper */
         .thumbLink {
             display: block;
             border: 1px solid var(--line2);
@@ -175,15 +173,72 @@
             }
 
         .thumb {
-            /* no fixed height */
             background: rgba(255,255,255,0.02);
         }
 
         .thumbImg {
             width: 100%;
-            height: auto; /* keeps original aspect ratio */
+            height: auto;
             display: block;
-            object-fit: initial; /* optional, makes it behave like normal image */
+            object-fit: initial;
+        }
+
+        /* -----------------------------
+           MULTI-THUMB LAYOUT (NEW)
+           main + 3 stacked thumbs
+        ------------------------------*/
+        .thumbGrid {
+            display: grid;
+            grid-template-columns: 1fr 160px; /* big + side column */
+            gap: 12px;
+            align-items: stretch;
+            padding: 12px;
+            background: rgba(255,255,255,0.01);
+        }
+
+        .mainThumb, .sideThumb {
+            border: 1px solid var(--line2);
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: rgba(255,255,255,0.02);
+        }
+
+            .mainThumb img, .sideThumb img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+        .mainThumb {
+            height: 360px; /* main height */
+        }
+
+        .sideStack {
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            gap: 12px;
+            height: 360px; /* match mainThumb */
+        }
+
+        @media (max-width: 900px) {
+            .thumbGrid {
+                grid-template-columns: 1fr;
+            }
+
+            .mainThumb {
+                height: 260px;
+            }
+
+            .sideStack {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: none;
+                height: auto;
+            }
+
+            .sideThumb {
+                height: 90px;
+            }
         }
 
         /* Bottom dock */
@@ -231,11 +286,6 @@
             .dockBtn:hover {
                 border-color: var(--line);
                 transform: translateY(-1px);
-            }
-
-            .dockBtn.primary {
-                background: rgba(35,240,208,0.16);
-                border-color: rgba(35,240,208,0.35);
             }
 
         /* Modals */
@@ -323,7 +373,7 @@
 
         <div class="projects">
 
-            <!-- PROJECT 1 -->
+            <!-- PROJECT 1 (MULTI THUMB) -->
             <div class="projectBlock">
                 <div class="projHeader">
                     <div class="projLeft">
@@ -339,8 +389,22 @@
                 </div>
 
                 <a class="thumbLink" href="#" target="_blank" rel="noopener">
-                    <div class="thumb">
-                        <img class="thumbImg" src="assets/thumbs/environments.jpg" alt="Palace of Deceit">
+                    <div class="thumbGrid">
+                        <div class="mainThumb">
+                            <img src="assets/thumbs/environments.jpg" alt="Environments main">
+                        </div>
+
+                        <div class="sideStack">
+                            <div class="sideThumb">
+                                <img src="assets/thumbs/env_1.jpg" alt="Environment thumb 1">
+                            </div>
+                            <div class="sideThumb">
+                                <img src="assets/thumbs/env_2.jpg" alt="Environment thumb 2">
+                            </div>
+                            <div class="sideThumb">
+                                <img src="assets/thumbs/env_3.jpg" alt="Environment thumb 3">
+                            </div>
+                        </div>
                     </div>
                 </a>
             </div>
@@ -384,7 +448,7 @@
 
                 <a class="thumbLink" href="#" target="_blank" rel="noopener">
                     <div class="thumb">
-                         <img class="thumbImg" src="assets/thumbs/games.jpg" alt="Paradox Hotel">
+                        <img class="thumbImg" src="assets/thumbs/games.jpg" alt="Paradox Hotel">
                     </div>
                 </a>
             </div>
@@ -424,6 +488,7 @@
             <a class="dockBtn" href="#" target="_blank" rel="noopener">ArtStation</a>
             <a class="dockBtn" href="#" target="_blank" rel="noopener">LinkedIn</a>
         </div>
+    </div>
 
     <!-- Modal: About -->
     <div class="modalOverlay" id="aboutModal">
