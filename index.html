@@ -190,23 +190,6 @@
             color: var(--muted);
             line-height: 1.7;
         }
-
-        .hero-roles {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .role-tag {
-            font-size: 11px;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            padding: 7px 14px;
-            border: 1px solid var(--line);
-            border-radius: 2px;
-            color: var(--muted);
-        }
-
         /* ─── PFP ────────────────────────────────────────────── */
         .hero-pfp-wrap {
             position: relative;
@@ -261,42 +244,6 @@
             50% {
                 opacity: 1;
                 transform: scale(1.02);
-            }
-        }
-
-        /* scroll indicator */
-        .scroll-hint {
-            position: absolute;
-            bottom: 30px;
-            right: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            color: var(--muted);
-            font-size: 10px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-        }
-
-            .scroll-hint::after {
-                content: '';
-                display: block;
-                width: 1px;
-                height: 50px;
-                background: linear-gradient(to bottom, var(--teal), transparent);
-                animation: scrollLine 2s ease-in-out infinite;
-            }
-
-        @keyframes scrollLine {
-            0%, 100% {
-                transform: scaleY(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scaleY(0.4);
-                opacity: 0.3;
             }
         }
 
@@ -763,10 +710,6 @@
                 padding: 32px 22px;
             }
 
-            .scroll-hint {
-                right: 22px;
-            }
-
             .project-row {
                 grid-template-columns: 1fr;
                 min-height: auto;
@@ -833,16 +776,7 @@
                 immersive, emotionally engaging experiences — from procedural environments
                 and editor tooling to gameplay systems and real-time pipelines.
             </p>
-            <div class="hero-roles">
-                <span class="role-tag">Houdini</span>
-                <span class="role-tag">Unreal Engine</span>
-                <span class="role-tag">Unity / C#</span>
-                <span class="role-tag">C++ / Slate</span>
-                <span class="role-tag">3ds Max</span>
-                <span class="role-tag">Substance</span>
-            </div>
         </div>
-        <div class="scroll-hint">Scroll</div>
     </section>
 
     <!-- ─── Work ─── -->
