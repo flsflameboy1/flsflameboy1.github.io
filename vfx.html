@@ -146,18 +146,50 @@
         .portfolio {
             padding: 60px 40px 120px;
         }
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+        /* Thumbnail row for selecting a project */
+        .portfolio-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 32px;
         }
-        .portfolio-img {
-            width: 100%;
+        .portfolio-thumb {
+            width: 180px;
             border-radius: 4px;
-            border: 1px solid var(--line);
+            border: 2px solid transparent;
             background: rgba(255,255,255,0.03);
-            display: block;
+            cursor: pointer;
+            transition: border-color 0.2s, transform 0.2s;
         }
+            .portfolio-thumb img {
+                display: block;
+                width: 100%;
+                height: auto;
+                border-radius: 4px;
+            }
+            .portfolio-thumb:hover {
+                transform: translateY(-2px);
+            }
+            .portfolio-thumb.active {
+                border-color: var(--teal);
+            }
+        /* Dropdown gallery that appears below the selected thumbnail */
+        .dropdown-gallery {
+            display: none;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+            .dropdown-gallery.active {
+                display: flex;
+            }
+            .dropdown-gallery img {
+                max-width: 90%;
+                border-radius: 4px;
+                border: 1px solid var(--line);
+                background: rgba(255,255,255,0.03);
+            }
         /* Footer styling */
         footer {
             border-top: 1px solid var(--line);
@@ -201,6 +233,21 @@
             footer { padding: 32px 22px; }
             .dock-btn { padding: 8px 11px; font-size: 10px; }
         }
+
+        /* Responsive adjustments for the bottom dock on narrow screens */
+        @media (max-width: 600px) {
+            .dock {
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 6px;
+                gap: 4px;
+            }
+            .dock-btn {
+                font-size: 9px;
+                padding: 6px 10px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -214,11 +261,21 @@
         <p class="proj-sub">Houdini‑based destruction, fluids, and real‑time Niagara VFX systems.</p>
     </div>
     <section class="portfolio">
-        <div class="portfolio-grid">
-            <!-- Display category-specific images -->
-            <img src="assets/thumbs/vfx/vfx_01.jpg" alt="VFX 1" class="portfolio-img" />
-            <img src="assets/thumbs/vfx/vfx_02.jpg" alt="VFX 2" class="portfolio-img" />
-            <img src="assets/thumbs/vfx/vfx_03.jpg" alt="VFX 3" class="portfolio-img" />
+        <!-- Thumbnails to select which project/gallery to view -->
+        <div class="portfolio-row">
+            <div class="portfolio-thumb active" data-index="0">
+                <img src="assets/thumbs/vfx/vfx_01.jpg" alt="VFX 1" onerror="this.style.display='none'" />
+            </div>
+            <div class="portfolio-thumb" data-index="1">
+                <img src="assets/thumbs/vfx/vfx_02.jpg" alt="VFX 2" onerror="this.style.display='none'" />
+            </div>
+            <div class="portfolio-thumb" data-index="2">
+                <img src="assets/thumbs/vfx/vfx_03.jpg" alt="VFX 3" onerror="this.style.display='none'" />
+            </div>
+        </div>
+        <!-- Gallery that will show more images about the selected project -->
+        <div class="dropdown-gallery active" id="dropdown-gallery">
+            <!-- Gallery images will be injected here via JavaScript -->
         </div>
     </section>
     <!-- Footer replicating style of other pages -->
@@ -258,6 +315,56 @@
                 } else {
                     hdr.classList.remove('scrolled');
                 }
+            });
+            // Set up drop-down gallery for the portfolio thumbnails
+            var thumbEls = Array.from(document.querySelectorAll('.portfolio-thumb'));
+            var galleryEl = document.getElementById('dropdown-gallery');
+            // Define a gallery map where each project index maps to an array of additional image paths.
+            // Update these arrays with the actual images for each project when available.
+            var galleryMap = {
+                0: [],
+                1: [],
+                2: []
+            };
+            function showGallery(index) {
+                // Highlight active thumbnail
+                thumbEls.forEach(function (thumb, i) {
+                    if (i === index) {
+                        thumb.classList.add('active');
+                    } else {
+                        thumb.classList.remove('active');
+                    }
+                });
+                // Clear current gallery content
+                galleryEl.innerHTML = '';
+                var images = galleryMap[index] || [];
+                if (images.length === 0) {
+                    // If no images are defined for this project yet, show a placeholder message
+                    var msg = document.createElement('p');
+                    msg.className = 'gallery-info';
+                    msg.textContent = 'More images coming soon...';
+                    galleryEl.appendChild(msg);
+                } else {
+                    // Otherwise, create image elements for each provided image path
+                    images.forEach(function (src) {
+                        var img = document.createElement('img');
+                        img.src = src;
+                        img.alt = 'Project image';
+                        galleryEl.appendChild(img);
+                    });
+                }
+                // Ensure gallery is visible
+                if (!galleryEl.classList.contains('active')) {
+                    galleryEl.classList.add('active');
+                }
+            }
+            // Initialize gallery with the first project
+            showGallery(0);
+            // Add click handlers to each thumbnail to switch galleries
+            thumbEls.forEach(function (thumb, idx) {
+                thumb.addEventListener('click', function () {
+                    showGallery(idx);
+                });
             });
         });
     </script>
