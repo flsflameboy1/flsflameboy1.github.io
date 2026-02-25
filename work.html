@@ -326,7 +326,6 @@
             0% {
                 background-position: 200% 0;
             }
-
             100% {
                 background-position: -200% 0;
             }
@@ -399,35 +398,28 @@
             header {
                 padding: 18px 22px;
             }
-
             .page-hero {
                 padding: 120px 22px 40px;
             }
-
             .work {
                 padding: 40px 22px 100px;
             }
-
             footer {
                 padding: 32px 22px;
             }
-
             .project-row {
                 grid-template-columns: 1fr;
                 min-height: auto;
             }
-
             .proj-info {
                 padding: 30px 0 24px;
             }
-
             .proj-images {
                 border-left: none;
                 border-top: 1px solid var(--line);
                 padding: 16px 0;
                 min-height: 180px;
             }
-
             .dock-btn {
                 padding: 8px 11px;
                 font-size: 10px;
@@ -478,7 +470,6 @@
     </div>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var hdr = document.getElementById('header');
@@ -486,11 +477,12 @@
                 hdr.classList.toggle('scrolled', window.scrollY > 60);
             });
 
+            // Define the projects list. Update the link property to point to category detail pages.
             var PROJECTS = [
                 {
                     number: "01", title: "Environments",
                     description: "Procedural environment work in Houdini to Unreal. Materials, variation, and pipeline.",
-                    tags: ["Houdini", "Unreal", "Materials"], link: "#",
+                    tags: ["Houdini", "Unreal", "Materials"], link: "environments.html",
                     images: [
                         { src: "assets/thumbs/env/env_01.jpg", alt: "Environment 1" },
                         { src: "assets/thumbs/env/env_02.jpg", alt: "Environment 2" },
@@ -501,7 +493,7 @@
                 {
                     number: "02", title: "Tools",
                     description: "Unreal Editor toolset (C++/Slate) for rapid level prototyping and procedural generation.",
-                    tags: ["Unreal", "C++", "Slate"], link: "#",
+                    tags: ["Unreal", "C++", "Slate"], link: "tools.html",
                     images: [
                         { src: "assets/thumbs/tools/tools_01.jpg", alt: "Tools 1" },
                         { src: "assets/thumbs/tools/tools_02.jpg", alt: "Tools 2" },
@@ -511,7 +503,7 @@
                 {
                     number: "03", title: "Games",
                     description: "2D detective puzzle prototype (game jam). Interaction systems, room logic, UI flow.",
-                    tags: ["Unity", "2D", "Systems"], link: "#",
+                    tags: ["Unity", "2D", "Systems"], link: "games.html",
                     images: [
                         { src: "assets/thumbs/games/games_01.jpg", alt: "Games 1" },
                         { src: "assets/thumbs/games/games_02.jpg", alt: "Games 2" },
@@ -521,7 +513,7 @@
                 {
                     number: "04", title: "3D Modelling",
                     description: "High-to-low workflow, baking, and presentation-ready renders.",
-                    tags: ["3ds Max", "Substance", "Render"], link: "#",
+                    tags: ["3ds Max", "Substance", "Render"], link: "modelling.html",
                     images: [
                         { src: "assets/thumbs/models/models_01.jpg", alt: "Model 1" },
                         { src: "assets/thumbs/models/models_02.jpg", alt: "Model 2" },
@@ -531,7 +523,7 @@
                 {
                     number: "05", title: "VFX & Simulations",
                     description: "Houdini-based destruction, fluids, and real-time Niagara VFX systems.",
-                    tags: ["Houdini", "Niagara", "VFX"], link: "#",
+                    tags: ["Houdini", "Niagara", "VFX"], link: "vfx.html",
                     images: [
                         { src: "assets/thumbs/vfx/vfx_01.jpg", alt: "VFX 1" },
                         { src: "assets/thumbs/vfx/vfx_02.jpg", alt: "VFX 2" },
@@ -541,7 +533,7 @@
                 {
                     number: "06", title: "Shaders & Materials",
                     description: "Custom HLSL and node-based shaders for real-time rendering in Unreal and Unity.",
-                    tags: ["HLSL", "Unreal Materials", "Substance"], link: "#",
+                    tags: ["HLSL", "Unreal Materials", "Substance"], link: "shaders.html",
                     images: [
                         { src: "assets/thumbs/shaders/shaders_01.jpg", alt: "Shader 1" },
                         { src: "assets/thumbs/shaders/shaders_02.jpg", alt: "Shader 2" },
