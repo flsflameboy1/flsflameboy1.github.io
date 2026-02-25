@@ -133,6 +133,7 @@
         .page-hero {
             padding: 140px 40px 60px;
             border-bottom: 1px solid var(--line);
+            text-align: center;
         }
 
         .page-eyebrow {
@@ -142,11 +143,12 @@
             color: var(--teal);
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 12px;
             margin-bottom: 20px;
         }
 
-            .page-eyebrow::before {
+            .page-eyebrow::before, .page-eyebrow::after {
                 content: '';
                 display: block;
                 width: 40px;
