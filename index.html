@@ -370,6 +370,22 @@
                 font-size: 10px;
             }
         }
+
+        /* Responsive adjustments for the bottom dock on narrow screens */
+        @media (max-width: 600px) {
+            .dock {
+                /* Allow dock items to wrap and center when there isn't enough horizontal space */
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 6px;
+                gap: 4px;
+            }
+
+            .dock-btn {
+                /* Reduce padding and font size for smaller devices */
+                font-size: 9px;
+                padding: 6px 10px;
+            }
     </style>
 </head>
 <body>
