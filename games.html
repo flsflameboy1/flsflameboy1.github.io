@@ -19,8 +19,17 @@
             --display: 'Bebas Neue', sans-serif;
             --body: 'DM Sans', sans-serif;
         }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: var(--bg);
             background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
@@ -31,6 +40,7 @@
             line-height: 1.5;
             overflow-x: hidden;
         }
+
         header {
             position: fixed;
             top: 0;
@@ -43,10 +53,33 @@
             border-bottom: 1px solid transparent;
             transition: border-color 0.3s, background 0.3s, backdrop-filter 0.3s;
         }
-            header.scrolled { border-color: var(--line); background: rgba(5,5,5,0.8); backdrop-filter: blur(12px); }
-        .logo { font-family: var(--display); font-size: 22px; letter-spacing: 0.12em; color: var(--white); text-decoration: none; }
-            .logo span { color: var(--teal); }
-        .dock-wrap { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 200; }
+
+            header.scrolled {
+                border-color: var(--line);
+                background: rgba(5,5,5,0.8);
+                backdrop-filter: blur(12px);
+            }
+
+        .logo {
+            font-family: var(--display);
+            font-size: 22px;
+            letter-spacing: 0.12em;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+            .logo span {
+                color: var(--teal);
+            }
+
+        .dock-wrap {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+        }
+
         .dock {
             display: flex;
             align-items: center;
@@ -59,6 +92,7 @@
             -webkit-backdrop-filter: blur(20px);
             box-shadow: 0 8px 32px rgba(0,0,0,0.5);
         }
+
         .dock-btn {
             font-family: var(--body);
             font-size: 11px;
@@ -75,14 +109,33 @@
             display: inline-flex;
             align-items: center;
         }
-            .dock-btn:hover { color: var(--teal); border-color: var(--teal-dim); transform: translateY(-2px); }
-            .dock-btn.active { color: var(--teal); border-color: var(--teal-dim); background: var(--teal-dim); }
-        .dock-divider { width: 1px; height: 18px; background: rgba(240,237,232,0.1); margin: 0 2px; flex-shrink: 0; }
+
+            .dock-btn:hover {
+                color: var(--teal);
+                border-color: var(--teal-dim);
+                transform: translateY(-2px);
+            }
+
+            .dock-btn.active {
+                color: var(--teal);
+                border-color: var(--teal-dim);
+                background: var(--teal-dim);
+            }
+
+        .dock-divider {
+            width: 1px;
+            height: 18px;
+            background: rgba(240,237,232,0.1);
+            margin: 0 2px;
+            flex-shrink: 0;
+        }
+
         .page-hero {
             padding: 140px 40px 40px;
             border-bottom: 1px solid var(--line);
             text-align: center;
         }
+
         .page-eyebrow {
             font-size: 11px;
             letter-spacing: 0.22em;
@@ -94,7 +147,15 @@
             gap: 12px;
             margin-bottom: 20px;
         }
-            .page-eyebrow::before, .page-eyebrow::after { content: ''; display: block; width: 40px; height: 1px; background: var(--teal); }
+
+            .page-eyebrow::before, .page-eyebrow::after {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 1px;
+                background: var(--teal);
+            }
+
         .page-title {
             font-family: var(--display);
             font-size: clamp(52px, 8vw, 110px);
@@ -102,6 +163,7 @@
             letter-spacing: 0.02em;
             text-transform: uppercase;
         }
+
         .proj-sub {
             font-size: 14px;
             color: var(--muted);
@@ -111,6 +173,7 @@
             margin-left: auto;
             margin-right: auto;
         }
+
         .portfolio {
             padding: 60px 40px 120px;
         }
@@ -122,6 +185,7 @@
             justify-content: center;
             margin-bottom: 32px;
         }
+
         .portfolio-thumb {
             width: 180px;
             border-radius: 4px;
@@ -130,15 +194,20 @@
             cursor: pointer;
             transition: border-color 0.2s, transform 0.2s;
         }
+
             .portfolio-thumb img {
                 display: block;
                 width: 100%;
                 height: auto;
+                max-height: 180px;
+                object-fit: contain;
                 border-radius: 4px;
             }
+
             .portfolio-thumb:hover {
                 transform: translateY(-2px);
             }
+
             .portfolio-thumb.active {
                 border-color: var(--teal);
             }
@@ -149,9 +218,11 @@
             gap: 24px;
             align-items: center;
         }
+
             .dropdown-gallery.active {
                 display: flex;
             }
+
             .dropdown-gallery img {
                 max-width: 90%;
                 border-radius: 4px;
@@ -168,6 +239,7 @@
             margin-top: 20px;
             text-align: center;
         }
+
         footer {
             border-top: 1px solid var(--line);
             padding: 40px;
@@ -178,18 +250,63 @@
             gap: 20px;
             margin-bottom: 80px;
         }
-        .footer-name { font-family: var(--display); font-size: 28px; letter-spacing: 0.08em; }
-            .footer-name span { color: var(--teal); }
-        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
-            .footer-links a { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-                .footer-links a:hover { color: var(--teal); }
-        .footer-copy { font-size: 11px; color: var(--muted); opacity: 0.5; }
+
+        .footer-name {
+            font-family: var(--display);
+            font-size: 28px;
+            letter-spacing: 0.08em;
+        }
+
+            .footer-name span {
+                color: var(--teal);
+            }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+            .footer-links a {
+                font-size: 12px;
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+                color: var(--muted);
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+
+                .footer-links a:hover {
+                    color: var(--teal);
+                }
+
+        .footer-copy {
+            font-size: 11px;
+            color: var(--muted);
+            opacity: 0.5;
+        }
+
         @media (max-width: 860px) {
-            header { padding: 18px 22px; }
-            .page-hero { padding: 120px 22px 24px; }
-            .portfolio { padding: 40px 22px 100px; }
-            footer { padding: 32px 22px; }
-            .dock-btn { padding: 8px 11px; font-size: 10px; }
+            header {
+                padding: 18px 22px;
+            }
+
+            .page-hero {
+                padding: 120px 22px 24px;
+            }
+
+            .portfolio {
+                padding: 40px 22px 100px;
+            }
+
+            footer {
+                padding: 32px 22px;
+            }
+
+            .dock-btn {
+                padding: 8px 11px;
+                font-size: 10px;
+            }
         }
 
         /* Responsive adjustments for the bottom dock on narrow screens */
@@ -200,12 +317,62 @@
                 padding: 6px;
                 gap: 4px;
             }
+
             .dock-btn {
                 font-size: 9px;
                 padding: 6px 10px;
             }
         }
 
+
+        /* Project info block shown above gallery */
+        .project-info {
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 720px;
+            margin: 0 auto 32px;
+            padding: 24px 28px;
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--teal);
+            border-radius: 4px;
+            background: rgba(35,240,208,0.03);
+        }
+
+            .project-info.active {
+                display: flex;
+            }
+
+        .project-info-title {
+            font-family: var(--display);
+            font-size: 28px;
+            letter-spacing: 0.06em;
+            color: var(--white);
+        }
+
+        .project-info-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 2px;
+        }
+
+        .project-info-tag {
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--teal);
+            border: 1px solid var(--teal-dim);
+            border-radius: 4px;
+            padding: 3px 8px;
+        }
+
+        .project-info-desc {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.75;
+            margin-top: 4px;
+        }
     </style>
 </head>
 <body>
@@ -230,6 +397,8 @@
                 <img src="assets/thumbs/games/games_03.jpg" alt="Games 3" onerror="this.style.display='none'" />
             </div>
         </div>
+        <!-- Project title and description -->
+        <div class="project-info" id="project-info"></div>
         <!-- Gallery that will show more images about the selected project -->
         <div class="dropdown-gallery active" id="dropdown-gallery">
             <!-- Gallery images will be injected here via JavaScript -->
@@ -269,6 +438,12 @@
             // Set up drop-down gallery for the portfolio thumbnails
             var thumbEls = Array.from(document.querySelectorAll('.portfolio-thumb'));
             var galleryEl = document.getElementById('dropdown-gallery');
+            var infoEl = document.getElementById('project-info');
+            var projectMeta = {
+                0: { title: "Hotel Paradox: Room Bound", tags: ["Unity", "Game Jam", "2D", "Puzzle"], desc: "A 2D detective mystery built during a game jam. Players navigate hotel rooms, gather clues, and solve puzzles. Handled interaction systems, room-to-room logic, inventory UI, and event-driven dialogue flow." },
+                1: { title: "MyPal", tags: ["Unity", "Mobile", "3D", "Simulation"], desc: "A mobile companion simulation game where players care for a virtual character. Implemented character state systems, UI/UX flow, shop integration, and daily activity loops." },
+                2: { title: "Hole in the Table", tags: ["Unity", "Hyper-Casual", "Mobile"], desc: "A hyper-casual mobile game prototype. Players control a hole that consumes objects on a surface. Focused on tight game feel, score systems, and simple progression mechanics." },
+            };
             // Define a gallery map where each project index maps to an array of additional image paths.
             var galleryMap = {
                 0: ["assets/projects/games/paradox/shot1.png",
@@ -300,6 +475,32 @@
                     }
                 });
                 galleryEl.innerHTML = '';
+                // Render project info
+                var meta = projectMeta[index];
+                infoEl.innerHTML = '';
+                if (meta) {
+                    var titleEl = document.createElement('div');
+                    titleEl.className = 'project-info-title';
+                    titleEl.textContent = meta.title;
+                    infoEl.appendChild(titleEl);
+                    if (meta.tags && meta.tags.length) {
+                        var tagsEl = document.createElement('div');
+                        tagsEl.className = 'project-info-tags';
+                        meta.tags.forEach(function (t) {
+                            var tag = document.createElement('span');
+                            tag.className = 'project-info-tag';
+                            tag.textContent = t;
+                            tagsEl.appendChild(tag);
+                        });
+                        infoEl.appendChild(tagsEl);
+                    }
+                    var descEl = document.createElement('p');
+                    descEl.className = 'project-info-desc';
+                    descEl.textContent = meta.desc;
+                    infoEl.appendChild(descEl);
+                    infoEl.classList.add('active');
+                }
+
                 var images = galleryMap[index] || [];
                 if (images.length === 0) {
                     var msg = document.createElement('p');

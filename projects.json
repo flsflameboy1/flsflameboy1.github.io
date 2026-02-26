@@ -56,8 +56,7 @@
     "link": "#",
     "images": [
       { "src": "assets/thumbs/vfx/vfx_01.jpg", "alt": "VFX shot 1" },
-      { "src": "assets/thumbs/vfx/vfx_02.jpg", "alt": "VFX shot 2" },
-      { "src": "assets/thumbs/vfx/vfx_03.jpg", "alt": "VFX shot 3" }
+     
     ]
   },
   {
