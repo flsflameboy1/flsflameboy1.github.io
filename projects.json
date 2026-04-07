@@ -9,7 +9,9 @@
       { "src": "assets/thumbs/env/env_01.jpg", "alt": "Environment shot 1" },
       { "src": "assets/thumbs/env/env_02.jpg", "alt": "Environment shot 2" },
       { "src": "assets/thumbs/env/env_03.jpg", "alt": "Environment shot 3" },
-      { "src": "assets/thumbs/env/env_04.jpg", "alt": "Environment shot 4" }
+      { "src": "assets/thumbs/env/env_04.jpg", "alt": "Environment shot 4" },
+      {"src": "assets/thumbs/env/env_04.jpg",  "alt": "Environment shot 4"  },
+      {"src": "assets/thumbs/env/env_04.jpg",  "alt": "Environment shot 4"   },
     ]
   },
   {
