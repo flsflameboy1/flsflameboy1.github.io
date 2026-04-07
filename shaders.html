@@ -494,11 +494,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             var hdr = document.getElementById('header');
             window.addEventListener('scroll', function () {
-                if (window.scrollY > 30) {
-                    hdr.classList.add('scrolled');
-                } else {
-                    hdr.classList.remove('scrolled');
-                }
+                hdr.classList.toggle('scrolled', window.scrollY > 60);
             });
             // Set up drop-down gallery for the portfolio thumbnails
             var thumbEls = Array.from(document.querySelectorAll('.portfolio-thumb'));
