@@ -62,13 +62,12 @@
   {
     "number": "06",
     "title": "Shaders & Materials",
-    "description": "Custom HLSL and node-based shaders for real-time rendering in Unreal and Unity.",
+    "description": "Custom  shaders for real-time rendering in Unreal and Unity.",
     "tags": ["HLSL", "Unreal Materials", "Substance"],
     "link": "#",
     "images": [
       { "src": "assets/thumbs/shaders/shaders_01.jpg", "alt": "Shader shot 1" },
-      { "src": "assets/thumbs/shaders/shaders_02.jpg", "alt": "Shader shot 2" },
-      { "src": "assets/thumbs/shaders/shaders_03.jpg", "alt": "Shader shot 3" }
+     
     ]
   }
 ]
