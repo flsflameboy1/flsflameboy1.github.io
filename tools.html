@@ -373,6 +373,72 @@
             line-height: 1.75;
             margin-top: 4px;
         }
+
+        /* YouTube video link card */
+        .project-video {
+            width: 100%;
+            margin: 0 0 8px;
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            cursor: pointer;
+            display: block;
+            text-decoration: none;
+            background: #111;
+            aspect-ratio: 16 / 9;
+        }
+
+            .project-video img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                display: block;
+                object-fit: cover;
+                object-position: center center;
+                filter: brightness(0.72);
+                transition: filter 0.25s;
+            }
+
+            .project-video:hover img {
+                filter: brightness(0.5);
+            }
+
+            .project-video.no-thumb {
+                background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+            }
+
+        .project-video-play {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            pointer-events: none;
+        }
+
+            .project-video-play svg {
+                width: 64px;
+                height: 64px;
+                filter: drop-shadow(0 2px 12px rgba(0,0,0,0.7));
+                transition: transform 0.2s;
+            }
+
+        .project-video:hover .project-video-play svg {
+            transform: scale(1.1);
+        }
+
+        .project-video-label {
+            font-family: var(--body);
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--white);
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
@@ -434,8 +500,30 @@
             var galleryEl = document.getElementById('dropdown-gallery');
             var infoEl = document.getElementById('project-info');
             var projectMeta = {
-                0: { title: "Unreal Level Prototyping Toolset", tags: ["Unreal Engine 5", "C++", "Slate UI", "Editor Tools"], desc: "A custom Unreal Editor plugin built in C++ using Slate UI. Provides rapid level blockout tools, one-click modular asset placement, and procedural generation utilities accessible directly inside the editor without leaving the viewport." },
+                0: {
+                    title: "Unreal Level Prototyping Toolset", tags: ["Unreal Engine 5", "C++", "Slate UI", "Editor Tools"], desc: "BabyLD Tools is an Unreal Engine C++ editor toolkit created to speed up early- stage level design and procedural blockout workflows.Built with Slate UI, the system supports single mesh spawning, line generation, grid - based floor creation, Perlin - driven mountain generation using stacked box variants, and 16 - bit heightmap export for landscape prototyping.The project also includes runtime colouring, World Outliner folder organisation, and dedicated cleanup functions for each generator, making it easier to iterate on complex blockout scenes while keeping the editor readable and production - friendly. Usable for both voxel style brick generation aswell as high fidelity Landscape generation", videos: ["https://youtu.be/LJK-wrF-OgE?si=WG0vVsDrshHKRxdO"] },
             };
+
+            // Render YouTube video link cards (supports single string or array)
+            var videos = meta && meta.videos ? meta.videos : (meta && meta.video ? [meta.video] : []);
+            videos.forEach(function (vid, vi) {
+                var videoId = vid.replace('https://www.youtube.com/embed/', '').replace('https://youtu.be/', '').split('?')[0];
+                var videoLink = document.createElement('a');
+                videoLink.className = 'project-video';
+                videoLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+                videoLink.target = '_blank';
+                videoLink.rel = 'noopener noreferrer';
+                var thumb = document.createElement('img');
+                thumb.src = 'https://img.youtube.com/vi/' + videoId + '/sddefault.jpg';
+                thumb.onerror = function () { this.style.display = 'none'; videoLink.classList.add('no-thumb'); };
+                thumb.alt = 'Watch video ' + (vi + 1);
+                var overlay = document.createElement('div');
+                overlay.className = 'project-video-play';
+                overlay.innerHTML = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.55)" stroke="rgba(240,237,232,0.3)" stroke-width="1.5"/><polygon points="32,24 60,40 32,56" fill="#23f0d0"/></svg><span class="project-video-label">Watch on YouTube</span>';
+                videoLink.appendChild(thumb);
+                videoLink.appendChild(overlay);
+                galleryEl.appendChild(videoLink);
+            });
             // Define a gallery map where each project index maps to an array of additional image paths.
             var galleryMap = {
                 0: []
