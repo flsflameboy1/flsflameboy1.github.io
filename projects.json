@@ -62,7 +62,7 @@
   {
     "number": "06",
     "title": "Shaders & Materials",
-    "description": "Custom  shaders for real-time rendering in Unreal and Unity.",
+    "description": "Custom shaders for real-time rendering in Unreal and Unity.",
     "tags": ["HLSL", "Unreal Materials", "Substance"],
     "link": "#",
     "images": [
