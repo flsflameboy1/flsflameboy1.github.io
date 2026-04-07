@@ -548,7 +548,26 @@
                     infoEl.appendChild(descEl);
                     infoEl.classList.add('active');
                 }
-
+                // Render YouTube video link cards (supports single string or array)
+                var videos = meta && meta.videos ? meta.videos : (meta && meta.video ? [meta.video] : []);
+                videos.forEach(function (vid, vi) {
+                    var videoId = vid.replace('https://www.youtube.com/embed/', '').replace('https://youtu.be/', '').split('?')[0];
+                    var videoLink = document.createElement('a');
+                    videoLink.className = 'project-video';
+                    videoLink.href = 'https://www.youtube.com/watch?v=' + videoId;
+                    videoLink.target = '_blank';
+                    videoLink.rel = 'noopener noreferrer';
+                    var thumb = document.createElement('img');
+                    thumb.src = 'https://img.youtube.com/vi/' + videoId + '/sddefault.jpg';
+                    thumb.onerror = function () { this.style.display = 'none'; videoLink.classList.add('no-thumb'); };
+                    thumb.alt = 'Watch video ' + (vi + 1);
+                    var overlay = document.createElement('div');
+                    overlay.className = 'project-video-play';
+                    overlay.innerHTML = '<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.55)" stroke="rgba(240,237,232,0.3)" stroke-width="1.5"/><polygon points="32,24 60,40 32,56" fill="#23f0d0"/></svg><span class="project-video-label">Watch on YouTube</span>';
+                    videoLink.appendChild(thumb);
+                    videoLink.appendChild(overlay);
+                    galleryEl.appendChild(videoLink);
+                });
                 var images = galleryMap[index] || [];
                 if (images.length === 0) {
                     // If no images are defined for this project yet, show a placeholder message
