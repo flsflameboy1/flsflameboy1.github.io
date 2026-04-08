@@ -48,7 +48,9 @@
     "images": [
       { "src": "assets/thumbs/models/models_01.jpg", "alt": "Model shot 1" },
       { "src": "assets/thumbs/models/models_02.jpg", "alt": "Model shot 2" },
-      { "src": "assets/thumbs/models/models_03.jpg", "alt": "Model shot 3" }
+      { "src": "assets/thumbs/models/models_03.jpg", "alt": "Model shot 3" },
+      { "src": "assets/thumbs/models/models_04.jpg", "alt": "Model shot 4" },
+      { "src": "assets/thumbs/models/models_05.jpg", "alt": "Model shot 5" }
     ]
   },
   {
